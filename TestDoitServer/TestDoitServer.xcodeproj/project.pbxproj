@@ -7,22 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E25E9B31EA88E50003F7750 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E25E9B11EA88E50003F7750 /* LoginViewController.swift */; };
+		5E25E9B41EA88E50003F7750 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E25E9B21EA88E50003F7750 /* LoginViewController.xib */; };
 		5E2A19A01EA7D71300CCB0D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E2A19991EA7D71300CCB0D5 /* Assets.xcassets */; };
 		5E2A19A11EA7D71300CCB0D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A199C1EA7D71300CCB0D5 /* AppDelegate.swift */; };
 		5E2A19A21EA7D71300CCB0D5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E2A199D1EA7D71300CCB0D5 /* LaunchScreen.storyboard */; };
 		5E2A19A31EA7D71300CCB0D5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5E2A199F1EA7D71300CCB0D5 /* Info.plist */; };
-		5E2A19A61EA7D87400CCB0D5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A19A41EA7D87400CCB0D5 /* LoginViewController.swift */; };
-		5E2A19A71EA7D87400CCB0D5 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E2A19A51EA7D87400CCB0D5 /* LoginViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5E25E9B11EA88E50003F7750 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		5E25E9B21EA88E50003F7750 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		5E2A19831EA7D4C200CCB0D5 /* TestDoitServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestDoitServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E2A19991EA7D71300CCB0D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5E2A199C1EA7D71300CCB0D5 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5E2A199E1EA7D71300CCB0D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5E2A199F1EA7D71300CCB0D5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5E2A19A41EA7D87400CCB0D5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		5E2A19A51EA7D87400CCB0D5 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,11 +36,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5E25E9AD1EA88E4F003F7750 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				5E25E9AF1EA88E50003F7750 /* Model */,
+				5E25E9B01EA88E50003F7750 /* UI */,
+				5E25E9AE1EA88E50003F7750 /* Contexts */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		5E25E9AE1EA88E50003F7750 /* Contexts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Contexts;
+			sourceTree = "<group>";
+		};
+		5E25E9AF1EA88E50003F7750 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5E25E9B01EA88E50003F7750 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				5E25E9B11EA88E50003F7750 /* LoginViewController.swift */,
+				5E25E9B21EA88E50003F7750 /* LoginViewController.xib */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		5E2A197A1EA7D4C200CCB0D5 = {
 			isa = PBXGroup;
 			children = (
 				5E2A199B1EA7D71300CCB0D5 /* TestDoitServer */,
-				5E2A199A1EA7D71300CCB0D5 /* Source */,
+				5E25E9AD1EA88E4F003F7750 /* Source */,
 				5E2A19981EA7D71300CCB0D5 /* Resources */,
 				5E2A19841EA7D4C200CCB0D5 /* Products */,
 			);
@@ -60,15 +93,6 @@
 				5E2A19991EA7D71300CCB0D5 /* Assets.xcassets */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		5E2A199A1EA7D71300CCB0D5 /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				5E2A19A41EA7D87400CCB0D5 /* LoginViewController.swift */,
-				5E2A19A51EA7D87400CCB0D5 /* LoginViewController.xib */,
-			);
-			path = Source;
 			sourceTree = "<group>";
 		};
 		5E2A199B1EA7D71300CCB0D5 /* TestDoitServer */ = {
@@ -141,7 +165,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E2A19A71EA7D87400CCB0D5 /* LoginViewController.xib in Resources */,
+				5E25E9B41EA88E50003F7750 /* LoginViewController.xib in Resources */,
 				5E2A19A01EA7D71300CCB0D5 /* Assets.xcassets in Resources */,
 				5E2A19A21EA7D71300CCB0D5 /* LaunchScreen.storyboard in Resources */,
 				5E2A19A31EA7D71300CCB0D5 /* Info.plist in Resources */,
@@ -155,7 +179,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E2A19A61EA7D87400CCB0D5 /* LoginViewController.swift in Sources */,
+				5E25E9B31EA88E50003F7750 /* LoginViewController.swift in Sources */,
 				5E2A19A11EA7D71300CCB0D5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,6 +338,7 @@
 				5E2A19971EA7D4C200CCB0D5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
