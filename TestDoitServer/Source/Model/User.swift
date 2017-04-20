@@ -7,10 +7,12 @@
 //
 
 import Foundation
+import UIKit.UIImage
 
 struct User {
     var email: String?
     var password: String?
     var userName: String?
     var token: String?
+    var image: UIImage?
 }

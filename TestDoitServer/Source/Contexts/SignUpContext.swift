@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginContext : NetworkContext {
+class SignUpContext : NetworkContext {
     var dataTask: URLSessionDataTask?
     var user: User
     
@@ -50,8 +50,8 @@ class LoginContext : NetworkContext {
                     }
                     
                     return
-                } else if status == 200 {
-                    print("user successfully logged in")
+                } else if status == 201 {
+                    print("user successfully created")
                     DispatchQueue.main.async {
                         self.hideNetworkActividyIndicator()
                         if let data = data {
@@ -79,14 +79,21 @@ class LoginContext : NetworkContext {
     }
 
     override func urlStringForRequest() -> String {
-        return "/login"
+        return "/create"
     }
     
     override func dictionaryForRequest() -> Dictionary<String, Any> {
         if let email = user.email,
-            let password = user.password {
-            return ["email" : email,
-                    "password" : password]
+            let password = user.password,
+            let image = user.image {
+            var result = ["email" : email,
+                          "password" : password,
+                          "avatar" : image] as [String : Any]
+            if let userName = user.userName {
+                result["username"] = userName
+            }
+            
+            return result
         } else {
             return [:]
         }

@@ -72,11 +72,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBAction  func onSendButton(_ sender: UIButton) {
         user.email = emailTextfield?.text;
         user.password = passwordTextfield?.text;
-        if mode == .signUp {
+        switch mode {
+        case .signUp:
             user.userName = usernameTextfield?.text;
+        case .login:
+            loginContext = LoginContext(user: user)
         }
-        
-        loginContext = LoginContext(user: user)
     }
 
     //MARK: Private

@@ -17,6 +17,7 @@
 		5E2A19A11EA7D71300CCB0D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A199C1EA7D71300CCB0D5 /* AppDelegate.swift */; };
 		5E2A19A21EA7D71300CCB0D5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E2A199D1EA7D71300CCB0D5 /* LaunchScreen.storyboard */; };
 		5E2A19A31EA7D71300CCB0D5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5E2A199F1EA7D71300CCB0D5 /* Info.plist */; };
+		5ED025AD1EA8FA9B00D9B8EF /* SignUpContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED025AC1EA8FA9B00D9B8EF /* SignUpContext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		5E2A199C1EA7D71300CCB0D5 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5E2A199E1EA7D71300CCB0D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5E2A199F1EA7D71300CCB0D5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5ED025AC1EA8FA9B00D9B8EF /* SignUpContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpContext.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			children = (
 				5E25E9BD1EA898B3003F7750 /* NetworkContext.swift */,
 				5E25E9BA1EA897D3003F7750 /* LoginContext.swift */,
+				5ED025AC1EA8FA9B00D9B8EF /* SignUpContext.swift */,
 			);
 			path = Contexts;
 			sourceTree = "<group>";
@@ -195,6 +198,7 @@
 				5E25E9B31EA88E50003F7750 /* LoginViewController.swift in Sources */,
 				5E25E9BE1EA898B3003F7750 /* NetworkContext.swift in Sources */,
 				5E2A19A11EA7D71300CCB0D5 /* AppDelegate.swift in Sources */,
+				5ED025AD1EA8FA9B00D9B8EF /* SignUpContext.swift in Sources */,
 				5E25E9BB1EA897D3003F7750 /* LoginContext.swift in Sources */,
 				5E25E9B61EA88F48003F7750 /* User.swift in Sources */,
 			);
