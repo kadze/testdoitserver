@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
     struct Constants {
         static let loginTitle = "Log in"
@@ -27,10 +27,29 @@ class LoginViewController: UIViewController {
     @IBOutlet var emailTextfield: UITextField?
     @IBOutlet var passwordTextfield: UITextField?
     
+    var user: User
+    
     var mode = Mode.login {
         didSet {
             self.changeAppearanceForCurrentMode()
         }
+    }
+    
+    var loginContext: LoginContext? {
+        didSet {
+            loginContext?.execute()
+        }
+    }
+    
+    //MARK: Initializations and Deallocations
+    
+    init(_ user: User) {
+        self.user = user
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     //MARK: View Lifecycle
@@ -49,6 +68,16 @@ class LoginViewController: UIViewController {
     @IBAction func onModeSwitchButton(_ sender: UIButton) {
         mode = (mode == .login) ? .signUp : .login;
     }
+    
+    @IBAction  func onSendButton(_ sender: UIButton) {
+        user.email = emailTextfield?.text;
+        user.password = passwordTextfield?.text;
+        if mode == .signUp {
+            user.userName = usernameTextfield?.text;
+        }
+        
+        loginContext = LoginContext(user: user)
+    }
 
     //MARK: Private
     
@@ -64,5 +93,4 @@ class LoginViewController: UIViewController {
             modeSwithButton?.setTitle(Constants.loginTitle, for: .normal)
         }
     }
-
 }

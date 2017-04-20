@@ -69,6 +69,9 @@
                     </constraints>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <state key="normal" title="Log in"/>
+                    <connections>
+                        <action selector="onSendButton:" destination="-1" eventType="touchUpInside" id="MJY-Iu-Kes"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aTi-HP-HN2">
                     <rect key="frame" x="161.5" y="427" width="52" height="44"/>
