@@ -15,4 +15,5 @@ struct User {
     var userName: String?
     var token: String?
     var image: UIImage?
+    var imagePath: String?
 }

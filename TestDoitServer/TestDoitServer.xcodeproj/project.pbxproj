@@ -18,6 +18,7 @@
 		5E2A19A21EA7D71300CCB0D5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E2A199D1EA7D71300CCB0D5 /* LaunchScreen.storyboard */; };
 		5E2A19A31EA7D71300CCB0D5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5E2A199F1EA7D71300CCB0D5 /* Info.plist */; };
 		5ED025AD1EA8FA9B00D9B8EF /* SignUpContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED025AC1EA8FA9B00D9B8EF /* SignUpContext.swift */; };
+		5ED025B61EA9369800D9B8EF /* Data+SAPExtenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED025B51EA9369800D9B8EF /* Data+SAPExtenstions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		5E2A199E1EA7D71300CCB0D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5E2A199F1EA7D71300CCB0D5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5ED025AC1EA8FA9B00D9B8EF /* SignUpContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpContext.swift; sourceTree = "<group>"; };
+		5ED025B51EA9369800D9B8EF /* Data+SAPExtenstions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+SAPExtenstions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 				5E25E9B01EA88E50003F7750 /* UI */,
 				5E25E9AE1EA88E50003F7750 /* Contexts */,
 				5E25E9B81EA8978C003F7750 /* NetworkManager.swift */,
+				5ED025B31EA935EF00D9B8EF /* Library */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -118,6 +121,22 @@
 				5E2A199F1EA7D71300CCB0D5 /* Info.plist */,
 			);
 			path = TestDoitServer;
+			sourceTree = "<group>";
+		};
+		5ED025B31EA935EF00D9B8EF /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				5ED025B41EA935EF00D9B8EF /* Extensions */,
+			);
+			path = Library;
+			sourceTree = SOURCE_ROOT;
+		};
+		5ED025B41EA935EF00D9B8EF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5ED025B51EA9369800D9B8EF /* Data+SAPExtenstions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,6 +220,7 @@
 				5ED025AD1EA8FA9B00D9B8EF /* SignUpContext.swift in Sources */,
 				5E25E9BB1EA897D3003F7750 /* LoginContext.swift in Sources */,
 				5E25E9B61EA88F48003F7750 /* User.swift in Sources */,
+				5ED025B61EA9369800D9B8EF /* Data+SAPExtenstions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

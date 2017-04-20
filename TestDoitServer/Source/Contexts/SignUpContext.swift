@@ -25,13 +25,25 @@ class SignUpContext : NetworkContext {
     }
     
     override func execute() {
-        guard let requestBody = try? JSONSerialization.data(withJSONObject: requestDictionary, options:[]) else {
-            return
-        }
+//        guard let requestBody = try? JSONSerialization.data(withJSONObject: requestDictionary, options:[]) else {
+//            return
+//        }
         
         var request = self.request()
-        request.httpBody = requestBody
+//        request.httpBody = requestBody
         
+        guard let email = user.email,
+            let password = user.password,
+            let path = user.imagePath else {
+                print("tadaaa");
+                return
+        }
+        
+        request = multipartURLRequest(with: request,
+                                      parameters: ["email" : email,
+                                                   "password" : password],
+                                      filePathKey: "file",
+                                      paths: [path])
         dataTask?.cancel()
         
         showNetworkActivityIndicator()
@@ -82,22 +94,23 @@ class SignUpContext : NetworkContext {
         return "/create"
     }
     
-    override func dictionaryForRequest() -> Dictionary<String, Any> {
-        if let email = user.email,
-            let password = user.password,
-            let image = user.image {
-            var result = ["email" : email,
-                          "password" : password,
-                          "avatar" : image] as [String : Any]
-            if let userName = user.userName {
-                result["username"] = userName
-            }
-            
-            return result
-        } else {
-            return [:]
-        }
-    }
+//    override func dictionaryForRequest() -> Dictionary<String, Any> {
+//        if let email = user.email,
+//            let password = user.password,
+//            let image = user.image,
+//            let imageData = UIImagePNGRepresentation(image) {
+//            var result = ["email" : email,
+//                          "password" : password,
+//                          "avatar" : imageData] as [String : Any]
+//            if let userName = user.userName {
+//                result["username"] = userName
+//            }
+//            
+//            return result
+//        } else {
+//            return [:]
+//        }
+//    }
     
     //MARK:-
     //MARK: Private

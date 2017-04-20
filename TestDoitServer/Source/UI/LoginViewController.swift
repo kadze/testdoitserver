@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     struct Constants {
         static let loginTitle = "Log in"
@@ -29,6 +29,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     var user: User
     
+    lazy var imagePicker: UIImagePickerController = {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        
+        return picker
+    }()
+    
     var mode = Mode.login {
         didSet {
             self.changeAppearanceForCurrentMode()
@@ -47,7 +54,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    //MARK: Initializations and Deallocations
+    //MARK:- Initializations and Deallocations
     
     init(_ user: User) {
         self.user = user
@@ -58,7 +65,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: View Lifecycle
+    //MARK:- View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,8 +93,31 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             loginContext = LoginContext(user: user)
         }
     }
+    
+    @IBAction func onChooseImageButton(_ sender: UIButton) {
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+    }
 
-    //MARK: Private
+    //MARK:- UIImagePickerControllerDelegate
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage,
+            let url = info[UIImagePickerControllerReferenceURL] as? URL
+        {
+            user.image = image
+            user.imagePath = url.absoluteString
+            chooseImageButton?.setBackgroundImage(image, for: .normal)
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    //MARK:- Private
     
     private func changeAppearanceForCurrentMode() {
         chooseImageButton?.isHidden = !(mode == .signUp)
