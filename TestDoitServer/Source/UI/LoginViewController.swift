@@ -41,6 +41,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    var signUpContext: SignUpContext? {
+        didSet {
+            signUpContext?.execute()
+        }
+    }
+    
     //MARK: Initializations and Deallocations
     
     init(_ user: User) {
@@ -75,6 +81,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         switch mode {
         case .signUp:
             user.userName = usernameTextfield?.text;
+            signUpContext = SignUpContext(user: user)
         case .login:
             loginContext = LoginContext(user: user)
         }
