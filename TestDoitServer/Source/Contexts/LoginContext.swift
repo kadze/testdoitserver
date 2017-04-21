@@ -109,7 +109,7 @@ class LoginContext : NetworkContext {
                 let token = json["token"] as? String
             {
                 user.token = token
-                //navigate to next controller 
+                //navigate to next controller
             }
         } catch  {
             print("Error reading response data Json: \(error)")

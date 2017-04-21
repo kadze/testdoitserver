@@ -12,6 +12,11 @@ import MobileCoreServices
 class SignUpContext : NetworkContext {
     var dataTask: URLSessionDataTask?
     var user: User
+    var loginContext:LoginContext? {
+        didSet {
+            loginContext?.execute()
+        }
+    }
     
     init(user: User) {
         self.user = user
@@ -28,7 +33,8 @@ class SignUpContext : NetworkContext {
     override func execute() {
         var request = self.request()
         
-        guard let email = user.email,
+        guard let username = user.userName,
+            let email = user.email,
             let password = user.password,
             let fileURL = user.imageURL,
             let image = user.image else {
@@ -36,7 +42,8 @@ class SignUpContext : NetworkContext {
         }
         
         request = multipartURLRequest(with: request,
-                                      parameters: ["email" : email,
+                                      parameters: ["username" : username,
+                                                   "email" : email,
                                                    "password" : password],
                                       filePathKey: "avatar",
                                       fileURL: fileURL,
@@ -101,6 +108,7 @@ class SignUpContext : NetworkContext {
             print(answer)
         }
         //
+        loginContext = LoginContext(user: user)
     }
     
     private func multipartURLRequest(with request: URLRequest,
