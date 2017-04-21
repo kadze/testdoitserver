@@ -106,7 +106,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
             let url = info[UIImagePickerControllerReferenceURL] as? URL
         {
             user.image = image
-            user.imagePath = url.absoluteString
+            user.imageURL = url
             chooseImageButton?.setBackgroundImage(image, for: .normal)
         }
         

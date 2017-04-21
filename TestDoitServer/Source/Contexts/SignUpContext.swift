@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 class SignUpContext : NetworkContext {
     var dataTask: URLSessionDataTask?
@@ -25,25 +26,22 @@ class SignUpContext : NetworkContext {
     }
     
     override func execute() {
-//        guard let requestBody = try? JSONSerialization.data(withJSONObject: requestDictionary, options:[]) else {
-//            return
-//        }
-        
         var request = self.request()
-//        request.httpBody = requestBody
         
         guard let email = user.email,
             let password = user.password,
-            let path = user.imagePath else {
-                print("tadaaa");
+            let fileURL = user.imageURL,
+            let image = user.image else {
                 return
         }
         
         request = multipartURLRequest(with: request,
                                       parameters: ["email" : email,
                                                    "password" : password],
-                                      filePathKey: "file",
-                                      paths: [path])
+                                      filePathKey: "avatar",
+                                      fileURL: fileURL,
+                                      image: image)
+        
         dataTask?.cancel()
         
         showNetworkActivityIndicator()
@@ -94,24 +92,6 @@ class SignUpContext : NetworkContext {
         return "/create"
     }
     
-//    override func dictionaryForRequest() -> Dictionary<String, Any> {
-//        if let email = user.email,
-//            let password = user.password,
-//            let image = user.image,
-//            let imageData = UIImagePNGRepresentation(image) {
-//            var result = ["email" : email,
-//                          "password" : password,
-//                          "avatar" : imageData] as [String : Any]
-//            if let userName = user.userName {
-//                result["username"] = userName
-//            }
-//            
-//            return result
-//        } else {
-//            return [:]
-//        }
-//    }
-    
     //MARK:-
     //MARK: Private
     
@@ -121,5 +101,60 @@ class SignUpContext : NetworkContext {
             print(answer)
         }
         //
+    }
+    
+    private func multipartURLRequest(with request: URLRequest,
+                             parameters: [String: String]?,
+                             filePathKey: String,
+                             fileURL: URL,
+                             image: UIImage) -> URLRequest
+    {
+        var resultRequest = request
+        let boundary = generateBoundaryString()
+        resultRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        resultRequest.httpBody = multipartRequestBody(with: parameters, filePathKey: filePathKey, url: fileURL, image: image, boundary: boundary)
+        
+        return resultRequest
+    }
+    
+    private func multipartRequestBody(with parameters: [String: String]?, filePathKey: String, url: URL, image: UIImage, boundary: String)
+        -> Data
+    {
+        var body = Data()
+        
+        if parameters != nil {
+            for (key, value) in parameters! {
+                body.append("--\(boundary)\r\n")
+                body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+                body.append("\(value)\r\n")
+            }
+        }
+        
+        let filename = url.lastPathComponent
+        let mimetype = mimeType(for: url)
+        
+        body.append("--\(boundary)\r\n")
+        body.append("Content-Disposition: form-data; name=\"\(filePathKey)\"; filename=\"\(filename)\"\r\n")
+        body.append("Content-Type: \(mimetype)\r\n\r\n")
+        if let data = UIImageJPEGRepresentation(image, 1) {
+            body.append(data)
+        }
+        
+        body.append("\r\n")
+        body.append("--\(boundary)--\r\n")
+        
+        return body
+    }
+    
+    private func mimeType(for url: URL) -> String {
+        let pathExtension = url.pathExtension
+        
+        if let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension as NSString, nil)?.takeRetainedValue() {
+            if let mimetype = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType)?.takeRetainedValue() {
+                return mimetype as String
+            }
+        }
+        
+        return "application/octet-stream";
     }
 }
