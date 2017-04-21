@@ -34,7 +34,7 @@ class PictureListViewController: UIViewController {
     //MARK:-
     
     func addImage() {
-        
+        navigationController?.pushViewController(PictureUploadViewController(), animated: true)
     }
     
     //MARK:- Private

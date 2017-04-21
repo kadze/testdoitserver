@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class LoginViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     struct Constants {
         static let loginTitle = "Log in"
@@ -75,6 +75,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         
         changeAppearanceForCurrentMode()
         present(UINavigationController(rootViewController: PictureListViewController(user)), animated: true, completion: nil)
+        
+        //WARNING: develop code
+        emailTextfield?.text = "a@gmail.com"
+        passwordTextfield?.text = "123456"
     }
     
     //MARK: Actions

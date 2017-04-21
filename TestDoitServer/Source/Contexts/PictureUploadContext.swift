@@ -9,37 +9,24 @@
 import UIKit
 import MobileCoreServices
 
-class SignUpContext : NetworkContext {
+class PictureUploadContext : NetworkContext {
     var dataTask: URLSessionDataTask?
-    var user: User
+    var user: User?
     var successHandler: (() -> ())?
-    var loginContext:LoginContext? {
-        didSet {
-            loginContext?.execute()
-        }
-    }
+    let appDelegate: AppDelegate  //singleton property for testing purposes
     
-    init(user: User) {
-        self.user = user
+    //initialization with default singleton for testing purposes
+    init(appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate) {
+        self.appDelegate = appDelegate
+        user = appDelegate.user
     }
     
     override func execute() {
         var request = self.request()
         
-        guard let email = user.email,
-            let password = user.password,
-            let fileURL = user.imageURL,
-            let image = user.image else {
-                return
-        }
-        
-        var parameters = ["email" : email,
-                          "password" : password]
-        
-        if let username = user.userName {
-            parameters["username"] = username
-        }
-        
+        let fileURL = URL(string: "")!
+        let parameters:[String : String]? = nil
+        let image = UIImage()
         request = multipartURLRequest(with: request,
                                       parameters: parameters,
                                       filePathKey: "avatar",
@@ -64,8 +51,17 @@ class SignUpContext : NetworkContext {
                     }
                     
                     return
-                } else if status == 201 {
-                    print("user successfully created")
+                } else if status == 403 {
+                    print("invalid access token")
+                    DispatchQueue.main.async {
+                        self.hideNetworkActividyIndicator()
+                    }
+                    
+                    return
+                }
+                
+                else if status == 201 {
+                    print("image successfully created")
                     DispatchQueue.main.async {
                         self.hideNetworkActividyIndicator()
                         if let data = data {
@@ -93,7 +89,7 @@ class SignUpContext : NetworkContext {
     }
 
     override func urlStringForRequest() -> String {
-        return "/create"
+        return "/image"
     }
     
     //MARK:-
@@ -105,9 +101,7 @@ class SignUpContext : NetworkContext {
             print(answer)
         }
         //
-        let context = LoginContext(user: user)
-        context.successHandler = successHandler
-        loginContext = context
+        
     }
     
     private func multipartURLRequest(with request: URLRequest,
