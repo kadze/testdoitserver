@@ -30,6 +30,8 @@ class LoginContext : NetworkContext {
         }
         
         var request = self.request()
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpBody = requestBody
         
         dataTask?.cancel()
@@ -101,5 +103,16 @@ class LoginContext : NetworkContext {
             print(answer)
         }
         //
+            
+        do {
+            if let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : AnyObject] ,
+                let token = json["token"] as? String
+            {
+                user.token = token
+                //navigate to next controller
+            }
+        } catch  {
+            print("Error reading response data Json: \(error)")
+        }
     }
 }
