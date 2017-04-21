@@ -17,9 +17,9 @@ protocol NetworkContextDelegate {
 
 @objc class NetworkContext: NSObject {
     
-    struct HTTPMethod {
-        static let get = "GET"
-        static let post = "POST"
+    enum HTTPMethod: String {
+        case get = "GET"
+        case post = "POST"
     }
     //MARK:-
     //MARK: Initialization
@@ -33,7 +33,6 @@ protocol NetworkContextDelegate {
     //MARK: Properties
     
     var requestDictionary: Dictionary<String, Any> = [:]
-    var httpMethod = HTTPMethod.get //just default value
     var requestTimeInterval: TimeInterval = 120
     
     var url: URL {
@@ -73,7 +72,7 @@ protocol NetworkContextDelegate {
     
     func request() -> URLRequest {
         var request = URLRequest(url: url, timeoutInterval: requestTimeInterval)
-        request.httpMethod = httpMethod
+        request.httpMethod = httpMethod().rawValue
         
         return request
     }
@@ -98,6 +97,10 @@ protocol NetworkContextDelegate {
         DispatchQueue.main.async {
             print(error.debugDescription)
         }
+    }
+    
+    func httpMethod() -> HTTPMethod {
+        return HTTPMethod.post
     }
     
     //multipart request

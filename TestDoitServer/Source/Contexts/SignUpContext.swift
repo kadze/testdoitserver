@@ -22,14 +22,6 @@ class SignUpContext : NetworkContext {
         self.user = user
     }
     
-    override var httpMethod: String {
-        get {
-            return HTTPMethod.post
-        }
-        
-        set {}
-    }
-    
     override func execute() {
         var request = self.request()
         

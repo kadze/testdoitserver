@@ -16,14 +16,6 @@ class LoginContext : NetworkContext {
         self.user = user
     }
     
-    override var httpMethod: String {
-        get {
-            return HTTPMethod.post
-        }
-        
-        set {}
-    }
-    
     override func execute() {
         guard let requestBody = try? JSONSerialization.data(withJSONObject: requestDictionary, options:[]) else {
             return
