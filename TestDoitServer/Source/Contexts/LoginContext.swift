@@ -11,6 +11,7 @@ import UIKit
 class LoginContext : NetworkContext {
     var dataTask: URLSessionDataTask?
     var user: User
+    var successHandler: (() -> ())?
     
     init(user: User) {
         self.user = user
@@ -101,7 +102,9 @@ class LoginContext : NetworkContext {
                 let token = json["token"] as? String
             {
                 user.token = token
-                //navigate to next controller
+                if let successHandler = successHandler {
+                    successHandler()
+                }
             }
         } catch  {
             print("Error reading response data Json: \(error)")

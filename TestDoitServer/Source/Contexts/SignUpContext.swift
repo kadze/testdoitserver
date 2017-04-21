@@ -12,6 +12,7 @@ import MobileCoreServices
 class SignUpContext : NetworkContext {
     var dataTask: URLSessionDataTask?
     var user: User
+    var successHandler: (() -> ())?
     var loginContext:LoginContext? {
         didSet {
             loginContext?.execute()
@@ -100,7 +101,9 @@ class SignUpContext : NetworkContext {
             print(answer)
         }
         //
-        loginContext = LoginContext(user: user)
+        let context = LoginContext(user: user)
+        context.successHandler = successHandler
+        loginContext = context
     }
     
     private func multipartURLRequest(with request: URLRequest,

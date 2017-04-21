@@ -74,6 +74,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         }
         
         changeAppearanceForCurrentMode()
+        present(UINavigationController(rootViewController: PictureListViewController(user)), animated: true, completion: nil)
     }
     
     //MARK: Actions
@@ -85,12 +86,22 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     @IBAction  func onSendButton(_ sender: UIButton) {
         user.email = emailTextfield?.text;
         user.password = passwordTextfield?.text;
+        
+        let successHandler = {[unowned self] in
+            let navigationController = UINavigationController(rootViewController: PictureListViewController(self.user))
+            self.present(navigationController, animated: true, completion: nil)
+        }
+        
         switch mode {
         case .signUp:
             user.userName = usernameTextfield?.text;
-            signUpContext = SignUpContext(user: user)
+            let context = SignUpContext(user: user)
+            context.successHandler = successHandler
+            signUpContext = context
         case .login:
-            loginContext = LoginContext(user: user)
+            let context = LoginContext(user: user)
+            context.successHandler = successHandler
+            loginContext = context
         }
     }
     
@@ -130,5 +141,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
             sendButton?.setTitle(Constants.singupTitle, for: .normal)
             modeSwithButton?.setTitle(Constants.loginTitle, for: .normal)
         }
+    }
+    
+    private func presentPictureListController() {
+        let navigationController = UINavigationController(rootViewController: PictureListViewController(self.user))
+        self.present(navigationController, animated: true, completion: nil)
     }
 }
