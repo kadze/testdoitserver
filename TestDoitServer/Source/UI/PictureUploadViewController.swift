@@ -15,20 +15,25 @@ class PictureUploadViewController: UIViewController, UIImagePickerControllerDele
     @IBOutlet var descriptionTextField: UITextField?
     @IBOutlet var tagTextField: UITextField?
     
-    var chooseImageButtonTile: String?
-    var imageURL: URL?
-    var image: UIImage? {
-        didSet {
+    lazy var imageUploadMoldel: ImageUploadModel = {
+        var model = ImageUploadModel()
+        model.imageSetHandler = {[unowned self] (image: UIImage?) in
             if let image = image {
-                chooseImageButton?.setTitle(nil, for: .normal)
-                imageView?.image = image
+                self.chooseImageButton?.setTitle(nil, for: .normal)
+                self.imageView?.image = image
             } else {
-                if let title = chooseImageButtonTile {
-                    chooseImageButton?.setTitle(title, for: .normal)
+                if let title = self.chooseImageButtonTile {
+                    self.chooseImageButton?.setTitle(title, for: .normal)
                 }
             }
         }
-    }
+        
+        return model
+    }()
+    
+    var chooseImageButtonTile: String?
+    var imageURL: URL?
+    var image: UIImage?
     
     lazy var imagePicker: UIImagePickerController = {
         let picker = UIImagePickerController()
@@ -37,11 +42,6 @@ class PictureUploadViewController: UIViewController, UIImagePickerControllerDele
         return picker
     }()
     
-    var uploadingContext: PictureUploadContext? {
-        didSet {
-            uploadingContext?.execute()
-        }
-    }
     
     //MARK:- View Lifecycle
     
@@ -62,8 +62,8 @@ class PictureUploadViewController: UIViewController, UIImagePickerControllerDele
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage,
             let url = info[UIImagePickerControllerReferenceURL] as? URL
         {
-            image = pickedImage
-            imageURL = url
+            imageUploadMoldel.image = pickedImage
+            imageUploadMoldel.imageFileURL = url
         }
         
         dismiss(animated: true, completion: nil)
@@ -81,11 +81,12 @@ class PictureUploadViewController: UIViewController, UIImagePickerControllerDele
     }
     
     func uploadImage() {
-        let context = PictureUploadContext()
-        context.successHandler = {[unowned self] in
+        imageUploadMoldel.hashtag = tagTextField?.text
+        imageUploadMoldel.imageDescription = descriptionTextField?.text
+        imageUploadMoldel.uploadSuccessHandler = {[unowned self] in
             self.dismiss(animated: true, completion: nil)
         }
         
-//        uploadingContext = context
+        imageUploadMoldel.upload()
     }
 }
