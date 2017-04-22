@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Photos
 
 struct ImageUploadModel {
     var image: UIImage? {
@@ -18,9 +19,14 @@ struct ImageUploadModel {
         }
     }
     
-    var imageFileURL: URL?
-    var latitude: Float?
-    var longiture: Float?
+    var imageFileURL: URL? {
+        didSet {
+            readImageCoordinates()
+        }
+    }
+    
+    var latitude: CLLocationDegrees?
+    var longitude: CLLocationDegrees?
     var imageDescription: String?
     var hashtag: String?
     var imageSetHandler:((UIImage?) -> Void)?
@@ -37,5 +43,18 @@ struct ImageUploadModel {
         context.successHandler = uploadSuccessHandler
         
 //        uploadingContext = context
+    }
+    
+    mutating func readImageCoordinates() {
+        guard let assetUrl = imageFileURL,
+            let asset = PHAsset.fetchAssets(withALAssetURLs: [assetUrl], options: nil).firstObject else {
+                return
+        }
+        
+        if let location = asset.location {
+            let coordinate = location.coordinate
+            latitude = coordinate.latitude
+            longitude = coordinate.longitude
+        }
     }
 }

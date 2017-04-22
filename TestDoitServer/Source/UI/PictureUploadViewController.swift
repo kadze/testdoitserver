@@ -9,7 +9,6 @@
 import UIKit
 
 class PictureUploadViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
     @IBOutlet var chooseImageButton: UIButton?
     @IBOutlet var imageView: UIImageView?
     @IBOutlet var descriptionTextField: UITextField?
