@@ -12,8 +12,10 @@ class LoginContext : NetworkContext {
     var dataTask: URLSessionDataTask?
     var user: User
     var successHandler: (() -> ())?
+    let appDelegate: AppDelegate  //singleton property for testing purposes
     
-    init(user: User) {
+    init(user: User, appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate) {
+        self.appDelegate = appDelegate
         self.user = user
     }
     
@@ -102,6 +104,7 @@ class LoginContext : NetworkContext {
                 let token = json["token"] as? String
             {
                 user.token = token
+                appDelegate.user = user
                 if let successHandler = successHandler {
                     successHandler()
                 }

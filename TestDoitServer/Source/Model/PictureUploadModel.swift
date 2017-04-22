@@ -1,5 +1,5 @@
 //
-//  ImageUploadModel.swift
+//  PictureUploadModel.swift
 //  TestDoitServer
 //
 //  Created by ASH on 4/22/17.
@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Photos
 
-struct ImageUploadModel : LocationManagerSingletonStructDelegate {
+struct PictureUploadModel : LocationManagerSingletonStructDelegate {
     var image: UIImage? {
         didSet {
             if let imageSetHandler = imageSetHandler {
@@ -87,7 +87,7 @@ struct ImageUploadModel : LocationManagerSingletonStructDelegate {
     }
     
     private mutating func uploadWithContext() {
-        let context = PictureUploadContext()
+        let context = PictureUploadContext(model:self)
         context.successHandler = uploadSuccessHandler
         
         uploadingContext = context

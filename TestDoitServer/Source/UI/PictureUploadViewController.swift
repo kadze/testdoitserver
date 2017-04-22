@@ -15,8 +15,8 @@ class PictureUploadViewController: UIViewController, UIImagePickerControllerDele
     @IBOutlet var descriptionTextField: UITextField?
     @IBOutlet var tagTextField: UITextField?
     
-    lazy var imageUploadMoldel: ImageUploadModel = {
-        var model = ImageUploadModel()
+    lazy var pictureUploadMoldel: PictureUploadModel = {
+        var model = PictureUploadModel()
         model.imageSetHandler = {[unowned self] (image: UIImage?) in
             if let image = image {
                 self.chooseImageButton?.setTitle(nil, for: .normal)
@@ -62,8 +62,8 @@ class PictureUploadViewController: UIViewController, UIImagePickerControllerDele
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage,
             let url = info[UIImagePickerControllerReferenceURL] as? URL
         {
-            imageUploadMoldel.image = pickedImage
-            imageUploadMoldel.imageFileURL = url
+            pictureUploadMoldel.image = pickedImage
+            pictureUploadMoldel.imageFileURL = url
         }
         
         dismiss(animated: true, completion: nil)
@@ -81,12 +81,16 @@ class PictureUploadViewController: UIViewController, UIImagePickerControllerDele
     }
     
     func uploadImage() {
-        imageUploadMoldel.hashtag = tagTextField?.text
-        imageUploadMoldel.imageDescription = descriptionTextField?.text
-        imageUploadMoldel.uploadSuccessHandler = {[unowned self] in
-            self.dismiss(animated: true, completion: nil)
+        guard let _ = pictureUploadMoldel.image else {
+            return
         }
         
-        imageUploadMoldel.upload()
+        pictureUploadMoldel.hashtag = tagTextField?.text
+        pictureUploadMoldel.imageDescription = descriptionTextField?.text
+        pictureUploadMoldel.uploadSuccessHandler = {[unowned self] in
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        pictureUploadMoldel.upload()
     }
 }
