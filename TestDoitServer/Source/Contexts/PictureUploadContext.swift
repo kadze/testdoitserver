@@ -22,66 +22,66 @@ class PictureUploadContext : NetworkContext {
     }
     
     override func execute() {
-        var request = self.request()
-        
-        let fileURL = URL(string: "")!
-        let parameters:[String : String]? = nil
-        let image = UIImage()
-        request = multipartURLRequest(with: request,
-                                      parameters: parameters,
-                                      filePathKey: "avatar",
-                                      fileURL: fileURL,
-                                      image: image)
-        
-        dataTask?.cancel()
-        
-        showNetworkActivityIndicator()
-        
-        dataTask = urlSession().dataTask(with: request, completionHandler: { (data, response, error) in
-            if let error = error {
-                self.handleConnectionError(error: error)
-            }
-            
-            if let response = response as? HTTPURLResponse {
-                let status = response.statusCode
-                if status == 400 {
-                    print("incorrect request data")
-                    DispatchQueue.main.async {
-                        self.hideNetworkActividyIndicator()
-                    }
-                    
-                    return
-                } else if status == 403 {
-                    print("invalid access token")
-                    DispatchQueue.main.async {
-                        self.hideNetworkActividyIndicator()
-                    }
-                    
-                    return
-                }
-                
-                else if status == 201 {
-                    print("image successfully created")
-                    DispatchQueue.main.async {
-                        self.hideNetworkActividyIndicator()
-                        if let data = data {
-                            self.handleResponseData(data: data)
-                        }
-                    }
-                } else {
-                    print("unknown status")
-                    DispatchQueue.main.async {
-                        self.hideNetworkActividyIndicator()
-                    }
-                }
-            }
-        })
-        
-        if let dataTask = dataTask {
-            dataTask.resume()
-        } else {
-            hideNetworkActividyIndicator()
-        }
+//        var request = self.request()
+//        
+//        let fileURL = URL(string: "")!
+//        let parameters:[String : String]? = nil
+//        let image = UIImage()
+//        request = multipartURLRequest(with: request,
+//                                      parameters: parameters,
+//                                      filePathKey: "avatar",
+//                                      fileURL: fileURL,
+//                                      image: image)
+//        
+//        dataTask?.cancel()
+//        
+//        showNetworkActivityIndicator()
+//        
+//        dataTask = urlSession().dataTask(with: request, completionHandler: { (data, response, error) in
+//            if let error = error {
+//                self.handleConnectionError(error: error)
+//            }
+//            
+//            if let response = response as? HTTPURLResponse {
+//                let status = response.statusCode
+//                if status == 400 {
+//                    print("incorrect request data")
+//                    DispatchQueue.main.async {
+//                        self.hideNetworkActividyIndicator()
+//                    }
+//                    
+//                    return
+//                } else if status == 403 {
+//                    print("invalid access token")
+//                    DispatchQueue.main.async {
+//                        self.hideNetworkActividyIndicator()
+//                    }
+//                    
+//                    return
+//                }
+//                
+//                else if status == 201 {
+//                    print("image successfully created")
+//                    DispatchQueue.main.async {
+//                        self.hideNetworkActividyIndicator()
+//                        if let data = data {
+//                            self.handleResponseData(data: data)
+//                        }
+//                    }
+//                } else {
+//                    print("unknown status")
+//                    DispatchQueue.main.async {
+//                        self.hideNetworkActividyIndicator()
+//                    }
+//                }
+//            }
+//        })
+//        
+//        if let dataTask = dataTask {
+//            dataTask.resume()
+//        } else {
+//            hideNetworkActividyIndicator()
+//        }
     }
 
     override func cancel() {

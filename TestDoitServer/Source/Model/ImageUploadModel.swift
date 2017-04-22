@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Photos
 
-struct ImageUploadModel {
+struct ImageUploadModel : LocationManagerSingletonStructDelegate {
     var image: UIImage? {
         didSet {
             if let imageSetHandler = imageSetHandler {
@@ -18,6 +18,8 @@ struct ImageUploadModel {
             }
         }
     }
+    
+    var locationManager = LocationManagerSingleton.sharedInstance
     
     var imageFileURL: URL? {
         didSet {
@@ -38,14 +40,40 @@ struct ImageUploadModel {
         }
     }
     
-    mutating func upload() {
-        let context = PictureUploadContext()
-        context.successHandler = uploadSuccessHandler
-        
-//        uploadingContext = context
+    //MARK:- LocationManagerSingletonStructDelegate
+    
+    mutating func locationManagerSingleton(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            let coordinate = location.coordinate
+            latitude = coordinate.latitude
+            longitude = coordinate.longitude
+            
+            uploadWithContext()
+        } else {
+            //alert can't get it
+        }
     }
     
-    mutating func readImageCoordinates() {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        let _ = 1
+        /*If a location fix cannot be determined in a timely manner, the location manager calls the delegate’s locationManager(_:didFailWithError:) method instead and reports a locationUnknown error*/
+    }
+    
+    //MARK:- Public
+    
+    mutating func upload() {
+        if longitude != nil, latitude != nil
+        {
+            uploadWithContext()
+        } else {
+            locationManager.structDelegate = self
+            locationManager.updateLocation()
+        }
+    }
+    
+    //MARK:- Private
+
+    private mutating func readImageCoordinates() {
         guard let assetUrl = imageFileURL,
             let asset = PHAsset.fetchAssets(withALAssetURLs: [assetUrl], options: nil).firstObject else {
                 return
@@ -56,5 +84,12 @@ struct ImageUploadModel {
             latitude = coordinate.latitude
             longitude = coordinate.longitude
         }
+    }
+    
+    private mutating func uploadWithContext() {
+        let context = PictureUploadContext()
+        context.successHandler = uploadSuccessHandler
+        
+        uploadingContext = context
     }
 }

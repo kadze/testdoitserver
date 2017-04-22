@@ -23,6 +23,7 @@
 		5E4EA9511EAAB235005D6214 /* PictureUploadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E4EA94F1EAAB235005D6214 /* PictureUploadViewController.xib */; };
 		5E4EA9551EAAB317005D6214 /* PictureUploadContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4EA9541EAAB317005D6214 /* PictureUploadContext.swift */; };
 		5E8288E21EAB80B600D5B1F8 /* ImageUploadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8288E11EAB80B600D5B1F8 /* ImageUploadModel.swift */; };
+		5E8288E41EAB9C9C00D5B1F8 /* LocationManagerSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8288E31EAB9C9C00D5B1F8 /* LocationManagerSingleton.swift */; };
 		5ED025AD1EA8FA9B00D9B8EF /* SignUpContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED025AC1EA8FA9B00D9B8EF /* SignUpContext.swift */; };
 		5ED025B61EA9369800D9B8EF /* Data+SAPExtenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED025B51EA9369800D9B8EF /* Data+SAPExtenstions.swift */; };
 /* End PBXBuildFile section */
@@ -45,6 +46,7 @@
 		5E4EA94F1EAAB235005D6214 /* PictureUploadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PictureUploadViewController.xib; sourceTree = "<group>"; };
 		5E4EA9541EAAB317005D6214 /* PictureUploadContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureUploadContext.swift; sourceTree = "<group>"; };
 		5E8288E11EAB80B600D5B1F8 /* ImageUploadModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploadModel.swift; sourceTree = "<group>"; };
+		5E8288E31EAB9C9C00D5B1F8 /* LocationManagerSingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManagerSingleton.swift; sourceTree = "<group>"; };
 		5ED025AC1EA8FA9B00D9B8EF /* SignUpContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpContext.swift; sourceTree = "<group>"; };
 		5ED025B51EA9369800D9B8EF /* Data+SAPExtenstions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+SAPExtenstions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -66,8 +68,9 @@
 				5E25E9AF1EA88E50003F7750 /* Model */,
 				5E25E9B01EA88E50003F7750 /* UI */,
 				5E25E9AE1EA88E50003F7750 /* Contexts */,
-				5E25E9B81EA8978C003F7750 /* NetworkManager.swift */,
 				5ED025B31EA935EF00D9B8EF /* Library */,
+				5E8288E31EAB9C9C00D5B1F8 /* LocationManagerSingleton.swift */,
+				5E25E9B81EA8978C003F7750 /* NetworkManager.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				5ED025AD1EA8FA9B00D9B8EF /* SignUpContext.swift in Sources */,
 				5E25E9BB1EA897D3003F7750 /* LoginContext.swift in Sources */,
 				5E4EA9551EAAB317005D6214 /* PictureUploadContext.swift in Sources */,
+				5E8288E41EAB9C9C00D5B1F8 /* LocationManagerSingleton.swift in Sources */,
 				5E25E9B61EA88F48003F7750 /* User.swift in Sources */,
 				5ED025B61EA9369800D9B8EF /* Data+SAPExtenstions.swift in Sources */,
 			);

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class PictureUploadViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet var chooseImageButton: UIButton?
