@@ -16,6 +16,8 @@
                 <outlet property="descriptionTextField" destination="syH-wV-ob3" id="oDE-N6-0pM"/>
                 <outlet property="imageView" destination="Jkb-dB-cUk" id="pnT-NH-y03"/>
                 <outlet property="tagTextField" destination="yUM-Jf-5me" id="qIQ-kR-vIf"/>
+                <outlet property="topButtonConstraint" destination="Lgl-Xj-wDs" id="rgQ-h2-8co"/>
+                <outlet property="topImageViewConstraint" destination="vif-0V-1Dh" id="l21-AE-xwZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -36,12 +38,18 @@
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="dqv-0y-v3E"/>
+                    </connections>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="#HASHTAG" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yUM-Jf-5me">
                     <rect key="frame" x="20" y="401" width="335" height="30"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="zfS-BD-PSg"/>
+                    </connections>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zSJ-Qv-UKU">
                     <rect key="frame" x="20" y="20" width="335" height="335"/>
