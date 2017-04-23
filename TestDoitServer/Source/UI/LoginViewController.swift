@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class LoginViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     struct Constants {
         static let loginTitle = "Log in"
@@ -26,6 +26,8 @@ class LoginViewController: UIViewController, UIImagePickerControllerDelegate, UI
     @IBOutlet var usernameTextfield: UITextField?
     @IBOutlet var emailTextfield: UITextField?
     @IBOutlet var passwordTextfield: UITextField?
+    @IBOutlet var centerYConstraint: NSLayoutConstraint?
+    @IBOutlet var stackView: UIStackView?
     
     var user: User
     
@@ -81,6 +83,14 @@ class LoginViewController: UIViewController, UIImagePickerControllerDelegate, UI
         passwordTextfield?.text = "123456"
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        subscribeForKeyboardNotifications()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        unsubscribeForKeyboardNotifications()
+    }
+    
     //MARK: Actions
     
     @IBAction func onModeSwitchButton(_ sender: UIButton) {
@@ -132,18 +142,81 @@ class LoginViewController: UIViewController, UIImagePickerControllerDelegate, UI
         dismiss(animated: true, completion: nil)
     }
     
+    //MARK:- UITextFieldDelegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        return true
+    }
+    
     //MARK:- Private
     
     private func changeAppearanceForCurrentMode() {
-        chooseImageButton?.isHidden = !(mode == .signUp)
-        usernameTextfield?.isHidden = !(mode == .signUp)
-        switch mode {
-        case .login:
-            sendButton?.setTitle(Constants.loginTitle, for: .normal)
-            modeSwithButton?.setTitle(Constants.singupTitle, for: .normal)
-        case .signUp:
-            sendButton?.setTitle(Constants.singupTitle, for: .normal)
-            modeSwithButton?.setTitle(Constants.loginTitle, for: .normal)
+        UIView.animate(withDuration: 0.3) { [unowned self] in
+            let alpha:CGFloat = (self.mode == .signUp) ? 1 : 0
+            self.chooseImageButton?.alpha = alpha
+            self.usernameTextfield?.alpha = alpha
+            switch self.mode {
+            case .login:
+                self.sendButton?.setTitle(Constants.loginTitle, for: .normal)
+                self.modeSwithButton?.setTitle(Constants.singupTitle, for: .normal)
+            case .signUp:
+                self.sendButton?.setTitle(Constants.singupTitle, for: .normal)
+                self.modeSwithButton?.setTitle(Constants.loginTitle, for: .normal)
+            }
         }
+    }
+    
+    private func subscribeForKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(LoginViewController.keyboardWillShow(notification:)),
+                                               name: NSNotification.Name.UIKeyboardWillShow,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(LoginViewController.keyboardWillHide(notification:)),
+                                               name: NSNotification.Name.UIKeyboardWillHide,
+                                               object: nil)
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        if let userInfo = notification.userInfo,
+            let field = passwordTextfield,
+            let stackView = stackView,
+            let constraint = centerYConstraint,
+            let keyboardRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
+            let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue
+        {
+            let convertedFieldFrame = stackView.convert(field.frame, to: view)
+            let fieldBottomY = convertedFieldFrame.maxY
+            let keyboardTopY = keyboardRect.minY
+            let delta = keyboardTopY - fieldBottomY
+            if delta < 0 {
+                constraint.constant = delta
+            }
+            
+            UIView.animate(withDuration: duration, animations: {[unowned self] in
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let constraint = centerYConstraint {
+            if let userInfo = notification.userInfo,
+                let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue
+            {
+                UIView.animate(withDuration: duration, animations: {
+                    constraint.constant = 0
+                    self.view.layoutIfNeeded()
+                })
+            }
+        }
+    }
+    
+    private func unsubscribeForKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     }
 }

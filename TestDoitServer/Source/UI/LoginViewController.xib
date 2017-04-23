@@ -12,11 +12,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="TestDoitServer" customModuleProvider="target">
             <connections>
+                <outlet property="centerYConstraint" destination="PQS-4E-EGS" id="R3A-mO-l9D"/>
                 <outlet property="chooseImageButton" destination="Asd-6d-Dwh" id="JAf-mw-tTi"/>
                 <outlet property="emailTextfield" destination="ltW-pa-Idt" id="g65-Tf-8E9"/>
                 <outlet property="modeSwithButton" destination="aTi-HP-HN2" id="gdP-Dt-z24"/>
                 <outlet property="passwordTextfield" destination="6Ec-6u-4tj" id="xNL-p7-zai"/>
                 <outlet property="sendButton" destination="rOr-ak-ZLA" id="XPD-sY-um1"/>
+                <outlet property="stackView" destination="KIH-y1-9ZQ" id="cPG-Nh-59V"/>
                 <outlet property="usernameTextfield" destination="acE-dA-yFG" id="MMM-ai-zgH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -31,6 +33,9 @@
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="jYk-7U-26d"/>
+                    </connections>
                 </textField>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="KIH-y1-9ZQ">
                     <rect key="frame" x="107.5" y="299.5" width="160" height="68"/>
@@ -40,12 +45,18 @@
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="Pvg-6o-ahz"/>
+                            </connections>
                         </textField>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="PASSWORD" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Ec-6u-4tj">
                             <rect key="frame" x="0.0" y="38" width="160" height="30"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="2TB-PE-o4L"/>
+                            </connections>
                         </textField>
                     </subviews>
                     <constraints>
