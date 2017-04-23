@@ -24,68 +24,62 @@ class PictureListLoadingContext : NetworkContext {
     }
     
     override func execute() {
-//        guard let requestBody = try? JSONSerialization.data(withJSONObject: requestDictionary, options:[]) else {
-//            return
-//        }
-//        
-//        var request = self.request()
-//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.addValue("application/json", forHTTPHeaderField: "Accept")
-//        request.httpBody = requestBody
-//        
-//        dataTask?.cancel()
+        var request = self.request()
+        request.setValue(user.token, forHTTPHeaderField: "token")
+        
+        dataTask?.cancel()
         
         ///////
-        let image = #imageLiteral(resourceName: "doll")
-        let item = ImageCollectionItem(image: image, address: "address 1", weather: "weather 1")
-        for _ in 1...3 {
-            imageCollection?.items.append(item)
-        }
-        
-        if let handler = successLoadHandler {
-            handler()
-        }
+//        let image = #imageLiteral(resourceName: "doll")
+//        let item = ImageCollectionItem(image: image, address: "address 1", weather: "weather 1")
+//        for _ in 1...3 {
+//            imageCollection?.items.append(item)
+//        }
+//        
+//        if let handler = successLoadHandler {
+//            handler()
+//        }
         
         ///////
         
-//        showNetworkActivityIndicator()
-//        
-//        dataTask = urlSession().dataTask(with: request, completionHandler: { (data, response, error) in
-//            if let error = error {
-//                self.handleConnectionError(error: error)
-//            }
-//            
-//            if let response = response as? HTTPURLResponse {
-//                let status = response.statusCode
-//                if status == 400 {
-//                    print("incorrect request data")
-//                    DispatchQueue.main.async {
-//                        self.hideNetworkActividyIndicator()
-//                    }
-//                    
-//                    return
-//                } else if status == 200 {
-//                    print("user successfully logged in")
-//                    DispatchQueue.main.async {
-//                        self.hideNetworkActividyIndicator()
-//                        if let data = data {
-//                            self.handleResponseData(data: data)
-//                        }
-//                    }
-//                } else {
-//                    print("unknown status")
-//                    DispatchQueue.main.async {
-//                        self.hideNetworkActividyIndicator()
-//                    }
-//                }
-//            }
-//        })
-//        
-//        if let dataTask = dataTask {
-//            dataTask.resume()
-//        } else {
-//            hideNetworkActividyIndicator()
-//        }
+        showNetworkActivityIndicator()
+
+        dataTask = urlSession().dataTask(with: request, completionHandler: { (data, response, error) in
+            if let error = error {
+                self.handleConnectionError(error: error)
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                let status = response.statusCode
+                if status == 403 {
+                    print("invalid access token")
+                    DispatchQueue.main.async {
+                        self.hideNetworkActividyIndicator()
+                    }
+                    
+                    return
+                } else if status == 200 {
+                    print("successfully done")
+                    DispatchQueue.main.async {
+                        self.hideNetworkActividyIndicator()
+                        if let data = data {
+                            self.handleResponseData(data: data)
+                        }
+                    }
+                } else {
+                    print("unknown status")
+                    DispatchQueue.main.async {
+                        self.hideNetworkActividyIndicator()
+                    }
+                }
+            }
+        })
+
+        if let dataTask = dataTask {
+            dataTask.resume()
+        } else {
+            hideNetworkActividyIndicator()
+        }
     }
 
     override func cancel() {
@@ -93,17 +87,11 @@ class PictureListLoadingContext : NetworkContext {
     }
 
     override func urlStringForRequest() -> String {
-        return "/login"
+        return "/all"
     }
     
-    override func dictionaryForRequest() -> Dictionary<String, Any> {
-        if let email = user.email,
-            let password = user.password {
-            return ["email" : email,
-                    "password" : password]
-        } else {
-            return [:]
-        }
+    override func httpMethod() -> HTTPMethod {
+        return HTTPMethod.get
     }
     
     //MARK:-
@@ -114,19 +102,45 @@ class PictureListLoadingContext : NetworkContext {
         if let answer = String(data: data, encoding: .utf8) {
             print(answer)
         }
-        //
-//        do {
-//            if let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : AnyObject] ,
-//                let token = json["token"] as? String
-//            {
-//                user.token = token
-//                appDelegate.user = user
-//                if let successHandler = successHandler {
-//                    successHandler()
-//                }
-//            }
-//        } catch  {
-//            print("Error reading response data Json: \(error)")
-//        }
+        
+        do {
+            if let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any] {
+                imageCollection?.items.removeAll()
+                let imageItem = ImageCollectionItem()
+                
+                if let images = json["images"] as? [[String:Any]] {
+                    for image in images {
+                        if let imagePath = image["smallImagePath"] as? String {
+                            imageItem.smallImagePath = imagePath
+                        }
+                        
+                        if let imagePath = image["bigImagePath"] as? String {
+                            imageItem.bigImagePath = imagePath
+                        }
+                        
+                        if let parameters = image["parameters"] as? [String:Any] {
+                            if let latitude = parameters["latitude"] as? Float,
+                                let longitude = parameters["longitude"] as? Float
+                            {
+                                imageItem.latitude = "\(latitude)"
+                                imageItem.longitude = "\(longitude)"
+                            }
+                            
+                            if let weather = parameters["weather"] as? String {
+                                imageItem.weather = weather
+                            }
+                        }
+                        
+                        imageCollection?.items.append(imageItem)
+                    }
+                }
+            
+                if let handler = successLoadHandler {
+                    handler()
+                }
+            }
+        } catch  {
+            print("Error reading response data Json: \(error)")
+        }
     }
 }

@@ -9,8 +9,22 @@
 import Foundation
 import UIKit
 
-struct ImageCollectionItem {
+class ImageCollectionItem {
     var image: UIImage?
-    var address: String?
+    var address: String {
+        get {
+            if let latitude = latitude,
+                let longitude = longitude {
+                return "\(latitude); \(longitude)"
+            }
+            
+            return "Unknown address"
+        }
+    }
+    
     var weather: String?
+    var smallImagePath: String?
+    var bigImagePath: String?
+    var longitude: String?
+    var latitude: String?
 }
