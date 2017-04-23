@@ -33,7 +33,6 @@ class ImageCollection {
     }
     
     func load() {
-        collectionLoadingContext = PictureListLoadingContext(imageCollection: self)
-        collectionLoadingContext?.successLoadHandler = loadHandler
+        collectionLoadingContext = PictureListLoadingContext(imageCollection: self, completionHandler: loadHandler)
     }
 }

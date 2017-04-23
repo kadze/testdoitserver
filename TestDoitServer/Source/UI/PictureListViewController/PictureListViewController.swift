@@ -23,7 +23,11 @@ class PictureListViewController: UIViewController, UICollectionViewDelegate, UIC
                                  forCellWithReuseIdentifier: reuseIdentifier)
         
         imageCollection.loadHandler = {[unowned self] in
-            self.collectionView?.reloadData()
+            if (self.collectionView?.dataSource) != nil {
+                self.collectionView?.reloadData()
+            } else {
+                print ("?")
+            }
         }
         
         imageCollection.load()

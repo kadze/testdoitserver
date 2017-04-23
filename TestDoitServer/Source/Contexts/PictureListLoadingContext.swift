@@ -15,24 +15,38 @@ class PictureListLoadingContext : NetworkContext {
     let appDelegate: AppDelegate  //singleton property for testing purposes
     weak var imageCollection: ImageCollection?
     
-    init(imageCollection: ImageCollection, appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate) {
+    init(imageCollection: ImageCollection, appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate, completionHandler: (() -> ())?) {
         self.imageCollection = imageCollection
         self.appDelegate = appDelegate
         self.user = appDelegate.user
+        successLoadHandler = completionHandler
         super.init()
     }
     
     override func execute() {
-        guard let requestBody = try? JSONSerialization.data(withJSONObject: requestDictionary, options:[]) else {
-            return
+//        guard let requestBody = try? JSONSerialization.data(withJSONObject: requestDictionary, options:[]) else {
+//            return
+//        }
+//        
+//        var request = self.request()
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        request.addValue("application/json", forHTTPHeaderField: "Accept")
+//        request.httpBody = requestBody
+//        
+//        dataTask?.cancel()
+        
+        ///////
+        let image = #imageLiteral(resourceName: "doll")
+        let item = ImageCollectionItem(image: image, address: "address 1", weather: "weather 1")
+        for _ in 1...3 {
+            imageCollection?.items.append(item)
         }
         
-        var request = self.request()
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.httpBody = requestBody
+        if let handler = successLoadHandler {
+            handler()
+        }
         
-        dataTask?.cancel()
+        ///////
         
 //        showNetworkActivityIndicator()
 //        

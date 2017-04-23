@@ -74,7 +74,7 @@ class LoginViewController: UIViewController, UIImagePickerControllerDelegate, UI
         }
         
         changeAppearanceForCurrentMode()
-        present(UINavigationController(rootViewController: PictureListViewController(user)), animated: true, completion: nil)
+//        present(UINavigationController(rootViewController: PictureListViewController(user)), animated: true, completion: nil)
         
         //WARNING: develop code
         emailTextfield?.text = "a@gmail.com"
@@ -92,7 +92,7 @@ class LoginViewController: UIViewController, UIImagePickerControllerDelegate, UI
         user.password = passwordTextfield?.text;
         
         let successHandler = {[unowned self] in
-            let navigationController = UINavigationController(rootViewController: PictureListViewController(self.user))
+            let navigationController = UINavigationController(rootViewController: PictureListViewController())
             self.present(navigationController, animated: true, completion: nil)
         }
         
@@ -145,10 +145,5 @@ class LoginViewController: UIViewController, UIImagePickerControllerDelegate, UI
             sendButton?.setTitle(Constants.singupTitle, for: .normal)
             modeSwithButton?.setTitle(Constants.loginTitle, for: .normal)
         }
-    }
-    
-    private func presentPictureListController() {
-        let navigationController = UINavigationController(rootViewController: PictureListViewController(self.user))
-        self.present(navigationController, animated: true, completion: nil)
     }
 }
