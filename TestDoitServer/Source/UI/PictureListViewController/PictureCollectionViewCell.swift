@@ -20,8 +20,22 @@ class PictureCollectionViewCell: UICollectionViewCell {
     }
     
     func fillWithModel() {
-        imageView?.image = model?.image
-        weatherLabel?.text = model?.weather
-        addressLabel?.text = model?.address
+        guard let imageView = imageView,
+            let model = model else {
+                return
+        }
+        
+        if let image = model.image {
+            imageView.image = image
+        } else {
+            model.imageSetHandler = {image in
+                imageView.image = image
+            }
+            
+            model.loadSmallImage()
+        }
+        
+        weatherLabel?.text = model.weather
+        addressLabel?.text = model.address
     }
 }

@@ -10,7 +10,16 @@ import Foundation
 import UIKit
 
 class ImageCollectionItem {
-    var image: UIImage?
+    var image: UIImage? {
+        didSet {
+            if let handler = imageSetHandler {
+                handler(image)
+            }
+        }
+    }
+    
+    var imageSetHandler: ((UIImage?) -> ())?
+    
     var address: String {
         get {
             if let latitude = latitude,
@@ -27,4 +36,21 @@ class ImageCollectionItem {
     var bigImagePath: String?
     var longitude: String?
     var latitude: String?
+    
+    var smallImageLoadingContext: PictureDownloadContext? {
+        didSet {
+            smallImageLoadingContext?.execute()
+        }
+    }
+    
+    //MARK:- Public
+    
+    func loadSmallImage() {
+        if let smallImagePath = smallImagePath,
+            let url = URL(string: smallImagePath) {
+            smallImageLoadingContext = PictureDownloadContext(url: url, completionHandler: {[unowned self] (image) in
+                self.image = image
+            })
+        }
+    }
 }
