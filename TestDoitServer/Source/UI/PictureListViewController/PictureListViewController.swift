@@ -10,26 +10,31 @@ import UIKit
 
 class PictureListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     @IBOutlet var collectionView: UICollectionView?
-    let reuseIdentifier = String(describing: PictureCollectionViewCell.self)
+    let cellNibName = String(describing: PictureCollectionViewCell.self)
     var imageCollection = ImageCollection()
+    let cellsPerRow = 2
     
     //MARK:- View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let collectionView = collectionView else { return }
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(PictureListViewController.addImage))
-        collectionView?.register(PictureCollectionViewCell.self,
-                                 forCellWithReuseIdentifier: reuseIdentifier)
+        
+        collectionView.register(UINib(nibName: cellNibName, bundle: nil), forCellWithReuseIdentifier: cellNibName)
         
         imageCollection.loadHandler = {[unowned self] in
-            if (self.collectionView?.dataSource) != nil {
-                self.collectionView?.reloadData()
-            } else {
-                print ("?")
-            }
+            self.collectionView?.reloadData()
         }
         
+        //in two columns
+        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            let marginsAndInsets = flowLayout.sectionInset.left + flowLayout.sectionInset.right + flowLayout.minimumInteritemSpacing * (CGFloat(cellsPerRow) - 1)
+            let itemWidth = (collectionView.bounds.size.width - marginsAndInsets) / CGFloat(cellsPerRow);
+            flowLayout.itemSize = CGSize(width: itemWidth, height: itemWidth)
+        }
+
         imageCollection.load()
     }
     
@@ -40,8 +45,7 @@ class PictureListViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? PictureCollectionViewCell else
-        {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellNibName, for: indexPath) as? PictureCollectionViewCell else {
             return UICollectionViewCell()
         }
         
