@@ -49,16 +49,18 @@ class PictureUploadViewController: UIViewController, UIImagePickerControllerDele
         return picker
     }()
     
+    var uploadButton: UIBarButtonItem?
     
     //MARK:- View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         edgesForExtendedLayout = []
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Upload",
-                                                            style: .plain,
-                                                            target: self,
-                                                            action: #selector(PictureUploadViewController.uploadImage))
+        uploadButton = UIBarButtonItem(title: "Upload",
+                                       style: .plain,
+                                       target: self,
+                                       action: #selector(PictureUploadViewController.uploadImage))
+        navigationItem.rightBarButtonItem = uploadButton
         
         chooseImageButtonTile = chooseImageButton?.title(for: .normal)
         
@@ -111,11 +113,19 @@ class PictureUploadViewController: UIViewController, UIImagePickerControllerDele
         guard let _ = pictureUploadMoldel.image else {
             return
         }
+        uploadButton?.isEnabled = false
         
         pictureUploadMoldel.hashtag = tagTextField?.text
         pictureUploadMoldel.imageDescription = descriptionTextField?.text
-        pictureUploadMoldel.uploadSuccessHandler = {[weak self] in
-            self?.navigationController?.popViewController(animated: true)
+//        pictureUploadMoldel.uploadSuccessHandler = {[weak self] in
+//            self?.navigationController?.popViewController(animated: true)
+//        }
+        pictureUploadMoldel.uploadCompletionHandler = {[weak self] (success) in
+            if success {
+                self?.navigationController?.popViewController(animated: true)
+            } else {
+                self?.uploadButton?.isEnabled = true
+            }
         }
         
         pictureUploadMoldel.upload()

@@ -18,4 +18,13 @@ extension UIAlertController {
         
         return controller
     }
+    
+    static func viewControllerForPresentingAlertNotAlertController() -> UIViewController? {
+        var controller = UIApplication.shared.keyWindow?.rootViewController
+        while controller != nil, controller?.presentedViewController != nil, !(controller is UIAlertController) {
+            controller = controller?.presentedViewController
+        }
+        
+        return controller
+    }
 }

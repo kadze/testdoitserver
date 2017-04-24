@@ -12,12 +12,14 @@ import MobileCoreServices
 class PictureUploadContext : NetworkContext {
     var dataTask: URLSessionDataTask?
     var user: User?
-    var successHandler: (() -> ())?
+//    var successHandler: (() -> ())?
+    var completionHandler: ((Bool) -> Void)?
     let appDelegate: AppDelegate  //singleton property for testing purposes
     let model: PictureUploadModel
     
     //initialization with default singleton for testing purposes
-    init(model: PictureUploadModel, appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate) {
+    init(model: PictureUploadModel, appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate, completionHandler: ((Bool) -> Void)?) {
+        self.completionHandler = completionHandler
         self.appDelegate = appDelegate
         self.model = model
         user = appDelegate.user
@@ -73,6 +75,9 @@ class PictureUploadContext : NetworkContext {
                         print("image successfully created")
                         if let data = data {
                             self.handleResponseData(data: data)
+                            if let completionHandler = self.completionHandler {
+                                completionHandler(true)
+                            }
                         }
                     } else {
                         if status == 400 {
@@ -88,6 +93,10 @@ class PictureUploadContext : NetworkContext {
                         if let data = data,
                             let answer = String(data: data, encoding: .utf8) {
                             print(answer)
+                        }
+                        
+                        if let completionHandler = self.completionHandler {
+                            completionHandler(false)
                         }
                     }
                 }
@@ -118,9 +127,9 @@ class PictureUploadContext : NetworkContext {
             print(answer)
         }
         //
-        if let successHandler = successHandler {
-            successHandler()
-        }
+//        if let successHandler = successHandler {
+//            successHandler()
+//        }
     }
     
     private func showAlert(with title: String, message: String) {

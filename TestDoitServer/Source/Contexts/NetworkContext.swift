@@ -98,7 +98,7 @@ protocol NetworkContextDelegate {
             print(error.debugDescription)
             let alertController = UIAlertController(title: "Connection error", message: "problems with internet connection", preferredStyle: .alert)
             alertController.addAction(UIAlertAction.init(title: "OK", style: .cancel, handler: nil))
-            UIAlertController.viewControllerForPresentingAlert()?.present(alertController, animated: true, completion: nil)
+            UIAlertController.viewControllerForPresentingAlertNotAlertController()?.present(alertController, animated: true, completion: nil)
 
         }
     }

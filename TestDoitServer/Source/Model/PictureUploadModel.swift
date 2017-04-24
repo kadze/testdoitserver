@@ -32,10 +32,12 @@ struct PictureUploadModel : LocationManagerSingletonStructDelegate {
     var imageDescription: String?
     var hashtag: String?
     var imageSetHandler:((UIImage?) -> Void)?
-    var uploadSuccessHandler:(() -> Void)?
+//    var uploadSuccessHandler:(() -> Void)?
+    var uploadCompletionHandler:((Bool) -> Void)?
     
     var uploadingContext: PictureUploadContext? {
         didSet {
+            oldValue?.cancel()
             uploadingContext?.execute()
         }
     }
@@ -87,8 +89,8 @@ struct PictureUploadModel : LocationManagerSingletonStructDelegate {
     }
     
     private mutating func uploadWithContext() {
-        let context = PictureUploadContext(model:self)
-        context.successHandler = uploadSuccessHandler
+        let context = PictureUploadContext(model:self, completionHandler: uploadCompletionHandler)
+//        context.successHandler = uploadSuccessHandler
         
         uploadingContext = context
     }
