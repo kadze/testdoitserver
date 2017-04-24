@@ -8,7 +8,8 @@
 
 import UIKit
 
-class PictureListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class PictureListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, PictureUploadViewControllerDelegate
+{
     @IBOutlet var collectionView: UICollectionView?
     let cellNibName = String(describing: PictureCollectionViewCell.self)
     var imageCollection = ImageCollection()
@@ -54,9 +55,17 @@ class PictureListViewController: UIViewController, UICollectionViewDelegate, UIC
         return cell
     }
     
+    //MARK:- PictureUploadViewControllerDelegate 
+    
+    func pictureUploadControllerdidFinishLoading(_ controller: PictureUploadViewController) {
+        imageCollection.load()
+    }
+    
     //MARK:-
     
     func addImage() {
-        navigationController?.pushViewController(PictureUploadViewController(), animated: true)
+        let uploadController = PictureUploadViewController()
+        uploadController.delegate = self
+        navigationController?.pushViewController(uploadController, animated: true)
     }
 }

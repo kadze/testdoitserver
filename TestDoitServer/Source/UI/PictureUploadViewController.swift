@@ -9,6 +9,10 @@
 import UIKit
 import CoreLocation
 
+protocol PictureUploadViewControllerDelegate : class {
+    func pictureUploadControllerdidFinishLoading(_ controller: PictureUploadViewController)
+}
+
 class PictureUploadViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     let statusBarHeight: CGFloat = 20
     let navigationBarHeight: CGFloat = 44
@@ -50,6 +54,7 @@ class PictureUploadViewController: UIViewController, UIImagePickerControllerDele
     }()
     
     var uploadButton: UIBarButtonItem?
+    weak var delegate: PictureUploadViewControllerDelegate?
     
     //MARK:- View Lifecycle
     
@@ -120,7 +125,10 @@ class PictureUploadViewController: UIViewController, UIImagePickerControllerDele
         pictureUploadMoldel.imageDescription = descriptionTextField?.text
         pictureUploadMoldel.uploadCompletionHandler = {[weak self] (success) in
             if success {
-                self?.navigationController?.popViewController(animated: true)
+                if let mySelf = self {
+                    mySelf.delegate?.pictureUploadControllerdidFinishLoading(mySelf)
+                    mySelf.navigationController?.popViewController(animated: true)
+                }
             } else {
                 self?.uploadButton?.isEnabled = true
                 self?.chooseImageButton?.isEnabled = true
@@ -147,8 +155,6 @@ class PictureUploadViewController: UIViewController, UIImagePickerControllerDele
     func keyboardWillShow(notification: NSNotification) {
         if let userInfo = notification.userInfo,
             let field = tagTextField,
-//            let constraint1 = topImageViewConstraint,
-//            let constraint2 = topButtonConstraint,
             let keyboardRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
             let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue
         {
@@ -166,16 +172,6 @@ class PictureUploadViewController: UIViewController, UIImagePickerControllerDele
     }
     
     func keyboardWillHide(notification: NSNotification) {
-//        if let constraint = centerYConstraint {
-//            if let userInfo = notification.userInfo,
-//                let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue
-//            {
-//                UIView.animate(withDuration: duration, animations: {
-//                    constraint.constant = 0
-//                    self.view.layoutIfNeeded()
-//                })
-//            }
-//        }
         if let constraint1 = topImageViewConstraint,
             let constraint2 = topButtonConstraint,
             let constant = topConstraintConstant
