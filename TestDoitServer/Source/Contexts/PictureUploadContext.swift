@@ -77,10 +77,39 @@ class PictureUploadContext : NetworkContext {
                     } else {
                         if status == 400 {
                             print("incorrect request data")
+                            if let data = data,
+                                let dataDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                                let fields = dataDictionary?["children"] as? [String : Any]
+                            {
+                                if let fieldInfo = fields["image"] as? [String : Any],
+                                    let errors = fieldInfo["errors"] {
+                                    print(errors)
+                                }
+                                
+                                if let fieldInfo = fields["hashtag"] as? [String : Any],
+                                    let errors = fieldInfo["errors"] {
+                                    print(errors)
+                                }
+                                
+                                if let fieldInfo = fields["latitude"] as? [String : Any],
+                                    let errors = fieldInfo["errors"] {
+                                    print(errors)
+                                }
+                                
+                                if let fieldInfo = fields["longitude"] as? [String : Any],
+                                    let errors = fieldInfo["errors"] {
+                                    print(errors)
+                                }
+                            }
                         } else if status == 403 {
                             print("invalid access token")
                         } else {
                             print("unknown status")
+                        }
+                        
+                        if let data = data,
+                            let answer = String(data: data, encoding: .utf8) {
+                            print(answer)
                         }
                         
                         self.unsuccessOperationAlert()

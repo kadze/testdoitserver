@@ -54,6 +54,11 @@ class LoginContext : NetworkContext {
                             print("unknown status")
                         }
                         
+                        if let data = data,
+                            let answer = String(data: data, encoding: .utf8) {
+                            print(answer)
+                        }
+                        
                         self.unsuccessOperationAlert()
                     }
                 }

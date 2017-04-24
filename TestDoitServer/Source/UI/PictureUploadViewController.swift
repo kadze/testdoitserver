@@ -114,8 +114,8 @@ class PictureUploadViewController: UIViewController, UIImagePickerControllerDele
         
         pictureUploadMoldel.hashtag = tagTextField?.text
         pictureUploadMoldel.imageDescription = descriptionTextField?.text
-        pictureUploadMoldel.uploadSuccessHandler = {[unowned self] in
-            self.navigationController?.popViewController(animated: true)
+        pictureUploadMoldel.uploadSuccessHandler = {[weak self] in
+            self?.navigationController?.popViewController(animated: true)
         }
         
         pictureUploadMoldel.upload()

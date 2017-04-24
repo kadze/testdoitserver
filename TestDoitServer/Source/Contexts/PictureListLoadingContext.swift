@@ -53,6 +53,10 @@ class PictureListLoadingContext : NetworkContext {
                 let status = response.statusCode
                 if status == 403 {
                     print("invalid access token")
+                    if let data = data,
+                        let answer = String(data: data, encoding: .utf8) {
+                        print(answer)
+                    }
                     DispatchQueue.main.async {
                         self.hideNetworkActividyIndicator()
                     }
@@ -68,6 +72,10 @@ class PictureListLoadingContext : NetworkContext {
                     }
                 } else {
                     print("unknown status")
+                    if let data = data,
+                        let answer = String(data: data, encoding: .utf8) {
+                        print(answer)
+                    }
                     DispatchQueue.main.async {
                         self.hideNetworkActividyIndicator()
                     }
@@ -106,10 +114,10 @@ class PictureListLoadingContext : NetworkContext {
         do {
             if let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any] {
                 imageCollection?.items.removeAll()
-                let imageItem = ImageCollectionItem()
-                
                 if let images = json["images"] as? [[String:Any]] {
                     for image in images {
+                        let imageItem = ImageCollectionItem()
+                        
                         if let imagePath = image["smallImagePath"] as? String {
                             imageItem.smallImagePath = imagePath
                         }
