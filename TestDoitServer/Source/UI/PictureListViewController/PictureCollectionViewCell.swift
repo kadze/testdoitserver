@@ -38,4 +38,10 @@ class PictureCollectionViewCell: UICollectionViewCell {
         weatherLabel?.text = model.weather
         addressLabel?.text = model.address
     }
+    
+    override func prepareForReuse() {
+        weatherLabel?.text = nil
+        addressLabel?.text = nil
+        imageView?.image = nil
+    }
 }
