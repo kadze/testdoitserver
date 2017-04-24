@@ -21,7 +21,13 @@ class PictureListViewController: UIViewController, UICollectionViewDelegate, UIC
         super.viewDidLoad()
         guard let collectionView = collectionView else { return }
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(PictureListViewController.addImage))
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .add,
+                                                              target: self,
+                                                              action: #selector(PictureListViewController.addImage)),
+                                              UIBarButtonItem(image: #imageLiteral(resourceName: "gif"),
+                                                              style: UIBarButtonItemStyle.plain,
+                                                              target: self,
+                                                              action: #selector(PictureListViewController.showGif))]
         
         collectionView.register(UINib(nibName: cellNibName, bundle: nil), forCellWithReuseIdentifier: cellNibName)
         
@@ -67,5 +73,9 @@ class PictureListViewController: UIViewController, UICollectionViewDelegate, UIC
         let uploadController = PictureUploadViewController()
         uploadController.delegate = self
         navigationController?.pushViewController(uploadController, animated: true)
+    }
+    
+    func showGif() {
+        
     }
 }
