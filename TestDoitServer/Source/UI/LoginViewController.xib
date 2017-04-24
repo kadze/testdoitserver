@@ -63,7 +63,7 @@
                         <constraint firstAttribute="width" constant="160" id="Lkk-TL-L4C"/>
                     </constraints>
                 </stackView>
-                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Asd-6d-Dwh">
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Asd-6d-Dwh">
                     <rect key="frame" x="138" y="153" width="99.5" height="100"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -77,7 +77,7 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rOr-ak-ZLA">
                     <rect key="frame" x="107.5" y="375" width="160" height="44"/>
-                    <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="9ax-Ni-nXl"/>
                     </constraints>
@@ -92,13 +92,14 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="HzS-uI-z4f"/>
                     </constraints>
+                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="Sign up"/>
                     <connections>
                         <action selector="onModeSwitchButton:" destination="-1" eventType="touchUpInside" id="mso-Ol-sgf"/>
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.0" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="KIH-y1-9ZQ" firstAttribute="width" secondItem="acE-dA-yFG" secondAttribute="width" id="06J-9b-Eyd"/>
                 <constraint firstItem="acE-dA-yFG" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="68S-fM-XbD"/>

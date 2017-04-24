@@ -38,9 +38,10 @@ class LoginViewController: UIViewController, UIImagePickerControllerDelegate, UI
         return picker
     }()
     
+    let animationDuration: TimeInterval = 0.3
     var mode = Mode.login {
         didSet {
-            self.changeAppearanceForCurrentMode()
+            self.changeAppearanceForCurrentMode(animated: true)
         }
     }
     
@@ -55,6 +56,8 @@ class LoginViewController: UIViewController, UIImagePickerControllerDelegate, UI
             signUpContext?.execute()
         }
     }
+    
+    let sendButtonCornerRadius:CGFloat = 4
     
     //MARK:- Initializations and Deallocations
     
@@ -71,12 +74,13 @@ class LoginViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let button = chooseImageButton {
+        if let button = chooseImageButton,
+            let sendButton = sendButton {
             button.layer.cornerRadius = button.frame.size.height / 2
+            sendButton.layer.cornerRadius = sendButtonCornerRadius
         }
         
-        changeAppearanceForCurrentMode()
-//        present(UINavigationController(rootViewController: PictureListViewController(user)), animated: true, completion: nil)
+        changeAppearanceForCurrentMode(animated: false)
         
         //WARNING: develop code
         emailTextfield?.text = "a@gmail.com"
@@ -152,8 +156,9 @@ class LoginViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     //MARK:- Private
     
-    private func changeAppearanceForCurrentMode() {
-        UIView.animate(withDuration: 0.3) { [unowned self] in
+    private func changeAppearanceForCurrentMode(animated: Bool) {
+        let duration = animated ? animationDuration : 0
+        UIView.animate(withDuration: duration) { [unowned self] in
             let alpha:CGFloat = (self.mode == .signUp) ? 1 : 0
             self.chooseImageButton?.alpha = alpha
             self.usernameTextfield?.alpha = alpha
