@@ -169,7 +169,7 @@ protocol NetworkContextDelegate {
     }
     
     func unsuccessOperationAlert() {
-        let alertController = UIAlertController(title: "Not success", message: "operation was not completed successfully", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "O_o", message: "operation was not completed successfully", preferredStyle: .alert)
         alertController.addAction(UIAlertAction.init(title: "OK", style: .cancel, handler: nil))
         UIAlertController.viewControllerForPresentingAlert()?.present(alertController, animated: true, completion: nil)
     }

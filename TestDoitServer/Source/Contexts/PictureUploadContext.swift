@@ -67,34 +67,23 @@ class PictureUploadContext : NetworkContext {
             
             if let response = response as? HTTPURLResponse {
                 let status = response.statusCode
-                if status == 400 {
-                    print("incorrect request data")
-                    DispatchQueue.main.async {
-                        self.hideNetworkActividyIndicator()
-                    }
-                    
-                    return
-                } else if status == 403 {
-                    print("invalid access token")
-                    DispatchQueue.main.async {
-                        self.hideNetworkActividyIndicator()
-                    }
-                    
-                    return
-                }
-                
-                else if status == 201 {
-                    print("image successfully created")
-                    DispatchQueue.main.async {
-                        self.hideNetworkActividyIndicator()
+                DispatchQueue.main.async {
+                    self.hideNetworkActividyIndicator()
+                    if status == 201 {
+                        print("image successfully created")
                         if let data = data {
                             self.handleResponseData(data: data)
                         }
-                    }
-                } else {
-                    print("unknown status")
-                    DispatchQueue.main.async {
-                        self.hideNetworkActividyIndicator()
+                    } else {
+                        if status == 400 {
+                            print("incorrect request data")
+                        } else if status == 403 {
+                            print("invalid access token")
+                        } else {
+                            print("unknown status")
+                        }
+                        
+                        self.unsuccessOperationAlert()
                     }
                 }
             }
