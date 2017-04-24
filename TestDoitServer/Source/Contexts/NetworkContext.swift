@@ -96,6 +96,10 @@ protocol NetworkContextDelegate {
     func handleConnectionError(error: Error?) {
         DispatchQueue.main.async {
             print(error.debugDescription)
+            let alertController = UIAlertController(title: "Connection error", message: "problems with internet connection", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction.init(title: "OK", style: .cancel, handler: nil))
+            UIAlertController.viewControllerForPresentingAlert()?.present(alertController, animated: true, completion: nil)
+
         }
     }
     
@@ -162,5 +166,11 @@ protocol NetworkContextDelegate {
     
     func generateBoundaryString() -> String {
         return "Boundary-\(NSUUID().uuidString)"
+    }
+    
+    func unsuccessOperationAlert() {
+        let alertController = UIAlertController(title: "Not success", message: "operation was not completed successfully", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction.init(title: "OK", style: .cancel, handler: nil))
+        UIAlertController.viewControllerForPresentingAlert()?.present(alertController, animated: true, completion: nil)
     }
 }

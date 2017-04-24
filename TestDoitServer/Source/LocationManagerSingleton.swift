@@ -26,17 +26,13 @@ class LocationManagerSingleton : NSObject, CLLocationManagerDelegate {
     
     func updateLocation() {
         let authorizaionStatus = CLLocationManager.authorizationStatus()
-        if authorizaionStatus == .notDetermined {
-            
-        } else if (authorizaionStatus == .denied || authorizaionStatus == .restricted) {
-            return
-        }
         
         switch authorizaionStatus {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         case .denied, .restricted:
-            //alert that denied before (hipster example)
+            showAlertWithDeniedLocationAccess()
+            
             return
         default:
             _ = 0
@@ -45,7 +41,7 @@ class LocationManagerSingleton : NSObject, CLLocationManagerDelegate {
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
         } else {
-            //maybe alert not enabled
+            //
         }
     }
     
@@ -58,5 +54,24 @@ class LocationManagerSingleton : NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         structDelegate?.locationManager(manager, didFailWithError: error)
         /*If a location fix cannot be determined in a timely manner, the location manager calls the delegate’s locationManager(_:didFailWithError:) method instead and reports a locationUnknown error*/
+    }
+    
+    func showAlertWithDeniedLocationAccess() {
+        let alertController = UIAlertController(
+            title: "Location Access Disabled",
+            message: "In order to be able to get your current location, please open this app's settings and set location access to 'While in use'.",
+            preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let openAction = UIAlertAction(title: "Open Settings", style: .default) { (action) in
+            if let url = URL(string:UIApplicationOpenSettingsURLString) {
+                UIApplication.shared.open(url)
+            }
+        }
+        
+        alertController.addAction(openAction)
+        UIAlertController.viewControllerForPresentingAlert()?.present(alertController, animated: true, completion: nil)
     }
 }

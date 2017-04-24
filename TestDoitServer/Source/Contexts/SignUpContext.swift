@@ -30,6 +30,10 @@ class SignUpContext : NetworkContext {
             let password = user.password,
             let fileURL = user.imageURL,
             let image = user.image else {
+                let alert = UIAlertController(title: "Fill required fields", message: "image, email and password are required fields", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                UIAlertController.viewControllerForPresentingAlert()?.present(alert, animated: true, completion: nil)
+                
                 return
         }
         

@@ -32,6 +32,7 @@
 		5ED025AD1EA8FA9B00D9B8EF /* SignUpContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED025AC1EA8FA9B00D9B8EF /* SignUpContext.swift */; };
 		5ED025B61EA9369800D9B8EF /* Data+SAPExtenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED025B51EA9369800D9B8EF /* Data+SAPExtenstions.swift */; };
 		5EDF1F911EAD1E6100595037 /* PictureDownloadContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDF1F901EAD1E6100595037 /* PictureDownloadContext.swift */; };
+		5EF82A4B1EAD881E00A8A1B1 /* UIAlertController+SAPEstensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF82A4A1EAD881E00A8A1B1 /* UIAlertController+SAPEstensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		5ED025AC1EA8FA9B00D9B8EF /* SignUpContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpContext.swift; sourceTree = "<group>"; };
 		5ED025B51EA9369800D9B8EF /* Data+SAPExtenstions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+SAPExtenstions.swift"; sourceTree = "<group>"; };
 		5EDF1F901EAD1E6100595037 /* PictureDownloadContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureDownloadContext.swift; sourceTree = "<group>"; };
+		5EF82A4A1EAD881E00A8A1B1 /* UIAlertController+SAPEstensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+SAPEstensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				5ED025B51EA9369800D9B8EF /* Data+SAPExtenstions.swift */,
+				5EF82A4A1EAD881E00A8A1B1 /* UIAlertController+SAPEstensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 				5E8288E81EACB47800D5B1F8 /* ImageCollection.swift in Sources */,
 				5E2A19A11EA7D71300CCB0D5 /* AppDelegate.swift in Sources */,
 				5ED025AD1EA8FA9B00D9B8EF /* SignUpContext.swift in Sources */,
+				5EF82A4B1EAD881E00A8A1B1 /* UIAlertController+SAPEstensions.swift in Sources */,
 				5E25E9BB1EA897D3003F7750 /* LoginContext.swift in Sources */,
 				5E4EA9551EAAB317005D6214 /* PictureUploadContext.swift in Sources */,
 				5E8288E41EAB9C9C00D5B1F8 /* LocationManagerSingleton.swift in Sources */,

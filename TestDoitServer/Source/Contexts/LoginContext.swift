@@ -40,25 +40,21 @@ class LoginContext : NetworkContext {
             
             if let response = response as? HTTPURLResponse {
                 let status = response.statusCode
-                if status == 400 {
-                    print("incorrect request data")
-                    DispatchQueue.main.async {
-                        self.hideNetworkActividyIndicator()
-                    }
-                    
-                    return
-                } else if status == 200 {
-                    print("user successfully logged in")
-                    DispatchQueue.main.async {
-                        self.hideNetworkActividyIndicator()
+                DispatchQueue.main.async {
+                    self.hideNetworkActividyIndicator()
+                    if status == 200 {
+                        print("user successfully logged in")
                         if let data = data {
                             self.handleResponseData(data: data)
                         }
-                    }
-                } else {
-                    print("unknown status")
-                    DispatchQueue.main.async {
-                        self.hideNetworkActividyIndicator()
+                    } else  {
+                        if status == 400 {
+                            print("incorrect request data")
+                        } else {
+                            print("unknown status")
+                        }
+                        
+                        self.unsuccessOperationAlert()
                     }
                 }
             }
