@@ -114,17 +114,16 @@ class PictureUploadViewController: UIViewController, UIImagePickerControllerDele
             return
         }
         uploadButton?.isEnabled = false
+        chooseImageButton?.isEnabled = false
         
         pictureUploadMoldel.hashtag = tagTextField?.text
         pictureUploadMoldel.imageDescription = descriptionTextField?.text
-//        pictureUploadMoldel.uploadSuccessHandler = {[weak self] in
-//            self?.navigationController?.popViewController(animated: true)
-//        }
         pictureUploadMoldel.uploadCompletionHandler = {[weak self] (success) in
             if success {
                 self?.navigationController?.popViewController(animated: true)
             } else {
                 self?.uploadButton?.isEnabled = true
+                self?.chooseImageButton?.isEnabled = true
             }
         }
         

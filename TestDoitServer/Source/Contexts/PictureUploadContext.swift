@@ -12,7 +12,6 @@ import MobileCoreServices
 class PictureUploadContext : NetworkContext {
     var dataTask: URLSessionDataTask?
     var user: User?
-//    var successHandler: (() -> ())?
     var completionHandler: ((Bool) -> Void)?
     let appDelegate: AppDelegate  //singleton property for testing purposes
     let model: PictureUploadModel
@@ -127,9 +126,6 @@ class PictureUploadContext : NetworkContext {
             print(answer)
         }
         //
-//        if let successHandler = successHandler {
-//            successHandler()
-//        }
     }
     
     private func showAlert(with title: String, message: String) {
