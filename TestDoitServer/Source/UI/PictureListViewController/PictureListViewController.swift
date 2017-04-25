@@ -88,7 +88,7 @@ class PictureListViewController: UIViewController, UICollectionViewDelegate, UIC
     func showGif() {
         let animationImagesNumber = 5
         var images = [UIImage]()
-        for imageItem in imageCollection.items {
+        for imageItem in imageCollection.items.reversed() {
             if images.count == animationImagesNumber {
                 break
             }
