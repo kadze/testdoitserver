@@ -31,9 +31,9 @@
 		5E8288F31EACBB1C00D5B1F8 /* PictureCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E8288F11EACBB1C00D5B1F8 /* PictureCollectionViewCell.xib */; };
 		5ED025AD1EA8FA9B00D9B8EF /* SignUpContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED025AC1EA8FA9B00D9B8EF /* SignUpContext.swift */; };
 		5ED025B61EA9369800D9B8EF /* Data+SAPExtenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED025B51EA9369800D9B8EF /* Data+SAPExtenstions.swift */; };
-		5ED9F0B11EAF1B53009414EB /* GifDownloadContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED9F0B01EAF1B53009414EB /* GifDownloadContext.swift */; };
 		5ED9F0B41EAF209A009414EB /* GifViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED9F0B21EAF209A009414EB /* GifViewController.swift */; };
 		5ED9F0B51EAF209A009414EB /* GifViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ED9F0B31EAF209A009414EB /* GifViewController.xib */; };
+		5ED9F0B71EAF4824009414EB /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED9F0B61EAF4824009414EB /* UIImage+Gif.swift */; };
 		5EDF1F911EAD1E6100595037 /* PictureDownloadContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDF1F901EAD1E6100595037 /* PictureDownloadContext.swift */; };
 		5EF82A4B1EAD881E00A8A1B1 /* UIAlertController+SAPEstensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF82A4A1EAD881E00A8A1B1 /* UIAlertController+SAPEstensions.swift */; };
 /* End PBXBuildFile section */
@@ -64,9 +64,9 @@
 		5E8288F11EACBB1C00D5B1F8 /* PictureCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PictureCollectionViewCell.xib; sourceTree = "<group>"; };
 		5ED025AC1EA8FA9B00D9B8EF /* SignUpContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpContext.swift; sourceTree = "<group>"; };
 		5ED025B51EA9369800D9B8EF /* Data+SAPExtenstions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+SAPExtenstions.swift"; sourceTree = "<group>"; };
-		5ED9F0B01EAF1B53009414EB /* GifDownloadContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifDownloadContext.swift; sourceTree = "<group>"; };
 		5ED9F0B21EAF209A009414EB /* GifViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifViewController.swift; sourceTree = "<group>"; };
 		5ED9F0B31EAF209A009414EB /* GifViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GifViewController.xib; sourceTree = "<group>"; };
+		5ED9F0B61EAF4824009414EB /* UIImage+Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
 		5EDF1F901EAD1E6100595037 /* PictureDownloadContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureDownloadContext.swift; sourceTree = "<group>"; };
 		5EF82A4A1EAD881E00A8A1B1 /* UIAlertController+SAPEstensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+SAPEstensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,7 +104,6 @@
 				5E4EA9541EAAB317005D6214 /* PictureUploadContext.swift */,
 				5E8288E91EACB88000D5B1F8 /* PictureListLoadingContext.swift */,
 				5EDF1F901EAD1E6100595037 /* PictureDownloadContext.swift */,
-				5ED9F0B01EAF1B53009414EB /* GifDownloadContext.swift */,
 			);
 			path = Contexts;
 			sourceTree = "<group>";
@@ -194,6 +193,7 @@
 			children = (
 				5ED025B51EA9369800D9B8EF /* Data+SAPExtenstions.swift */,
 				5EF82A4A1EAD881E00A8A1B1 /* UIAlertController+SAPEstensions.swift */,
+				5ED9F0B61EAF4824009414EB /* UIImage+Gif.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -279,7 +279,6 @@
 				5E25E9B91EA8978C003F7750 /* NetworkManager.swift in Sources */,
 				5E25E9B31EA88E50003F7750 /* LoginViewController.swift in Sources */,
 				5ED9F0B41EAF209A009414EB /* GifViewController.swift in Sources */,
-				5ED9F0B11EAF1B53009414EB /* GifDownloadContext.swift in Sources */,
 				5E8288F21EACBB1C00D5B1F8 /* PictureCollectionViewCell.swift in Sources */,
 				5E8288E21EAB80B600D5B1F8 /* PictureUploadModel.swift in Sources */,
 				5E25E9BE1EA898B3003F7750 /* NetworkContext.swift in Sources */,
@@ -290,6 +289,7 @@
 				5E4EA9501EAAB235005D6214 /* PictureUploadViewController.swift in Sources */,
 				5E8288E81EACB47800D5B1F8 /* ImageCollection.swift in Sources */,
 				5E2A19A11EA7D71300CCB0D5 /* AppDelegate.swift in Sources */,
+				5ED9F0B71EAF4824009414EB /* UIImage+Gif.swift in Sources */,
 				5ED025AD1EA8FA9B00D9B8EF /* SignUpContext.swift in Sources */,
 				5EF82A4B1EAD881E00A8A1B1 /* UIAlertController+SAPEstensions.swift in Sources */,
 				5E25E9BB1EA897D3003F7750 /* LoginContext.swift in Sources */,

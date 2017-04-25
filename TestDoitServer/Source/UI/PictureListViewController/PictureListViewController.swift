@@ -102,12 +102,17 @@ class PictureListViewController: UIViewController, UICollectionViewDelegate, UIC
         gifController.images = images
         
         gifController.modalPresentationStyle = .popover
-        guard let collectionView = collectionView else { return }
         
-        let width = collectionView.bounds.size.width -  CGFloat(gifOffset * 2)
+        guard let collectionView = collectionView,
+            let popcontroller = gifController.popoverPresentationController else {
+                return
+        }
+        
+        let collectionViewSize = collectionView.bounds.size
+        let sideLenght = UIDeviceOrientationIsPortrait(UIDevice.current.orientation) ? collectionViewSize.width : collectionViewSize.height
+        let width = sideLenght -  CGFloat(gifOffset * 2)
         gifController.preferredContentSize = CGSize(width: width, height: width)
         
-        guard let popcontroller = gifController.popoverPresentationController else {return}
         popcontroller.delegate = self
         popcontroller.sourceView = view
         popcontroller.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
