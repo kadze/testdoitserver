@@ -82,9 +82,9 @@ class LoginViewController: UIViewController, UIImagePickerControllerDelegate, UI
         
         changeAppearanceForCurrentMode(animated: false)
         
-//        //WARNING: develop code
-//        emailTextfield?.text = "a@gmail.com"
-//        passwordTextfield?.text = "123456"
+        //WARNING: develop code
+        emailTextfield?.text = "a@gmail.com"
+        passwordTextfield?.text = "123456"
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -35,25 +35,25 @@ class PictureUploadContext : NetworkContext {
                 return
         }
         
-        request.setValue(token, forHTTPHeaderField: "token")
-        var parameters: [String : String] = ["latitude" : "\(latitude)",
-                          "longitude" : "\(longitude)"]
+        request.setValue(token, forHTTPHeaderField: APIParameters.token)
+        var parameters: [String : String] = [APIParameters.latitude : "\(latitude)",
+                          APIParameters.longitude : "\(longitude)"]
         
         if let imageDescription = model.imageDescription {
             if imageDescription.characters.count > 0 {
-                parameters["description"] = imageDescription
+                parameters[APIParameters.description] = imageDescription
             }
         }
         
         if let tag = model.hashtag {
             if tag.characters.count > 0 {
-                parameters["hashtag"] = tag
+                parameters[APIParameters.hashtag] = tag
             }
         }
         
         request = multipartURLRequest(with: request,
                                       parameters: parameters,
-                                      filePathKey: "image",
+                                      filePathKey: APIParameters.image,
                                       fileURL: fileURL,
                                       image: image)
         
@@ -132,12 +132,16 @@ class PictureUploadContext : NetworkContext {
         print("incorrect request data")
         if let data = data,
             let dataDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-            let fields = dataDictionary?["children"] as? [String : Any]
+            let fields = dataDictionary?[APIResponseDataKeys.children] as? [String : Any]
         {
             var errorsDescription = ""
-            for fieldKey in ["image", "hashtag", "latitude", "longitude"] {
+            for fieldKey in [APIResponseDataKeys.image,
+                             APIResponseDataKeys.hashtag,
+                             APIResponseDataKeys.latitude,
+                             APIResponseDataKeys.longitude]
+            {
                 if let fieldInfo = fields[fieldKey] as? [String : Any],
-                    let errors = fieldInfo["errors"] as? [String] {
+                    let errors = fieldInfo[APIResponseDataKeys.errors] as? [String] {
                     for errorDescription in errors {
                         errorsDescription += "\(errorDescription) "
                     }

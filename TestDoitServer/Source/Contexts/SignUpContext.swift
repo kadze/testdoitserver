@@ -37,16 +37,16 @@ class SignUpContext : NetworkContext {
                 return
         }
         
-        var parameters = ["email" : email,
-                          "password" : password]
+        var parameters = [APIParameters.email : email,
+                          APIParameters.password : password]
         
         if let username = user.userName {
-            parameters["username"] = username
+            parameters[APIParameters.username] = username
         }
         
         request = multipartURLRequest(with: request,
                                       parameters: parameters,
-                                      filePathKey: "avatar",
+                                      filePathKey: APIParameters.avatar,
                                       fileURL: fileURL,
                                       image: image)
         
@@ -112,12 +112,12 @@ class SignUpContext : NetworkContext {
         print("incorrect request data")
         if let data = data,
             let dataDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-            let fields = dataDictionary?["children"] as? [String : Any]
+            let fields = dataDictionary?[APIResponseDataKeys.children] as? [String : Any]
         {
             var errorsDescription = ""
-            for fieldKey in ["username", "email", "password", "avatar"] {
+            for fieldKey in [APIResponseDataKeys.username, APIResponseDataKeys.email, APIResponseDataKeys.password, APIResponseDataKeys.avatar] {
                 if let fieldInfo = fields[fieldKey] as? [String : Any],
-                    let errors = fieldInfo["errors"] as? [String] {
+                    let errors = fieldInfo[APIResponseDataKeys.errors] as? [String] {
                     for errorDescription in errors {
                         errorsDescription += "\(errorDescription) "
                     }

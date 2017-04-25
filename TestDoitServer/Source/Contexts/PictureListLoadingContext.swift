@@ -25,7 +25,7 @@ class PictureListLoadingContext : NetworkContext {
     
     override func execute() {
         var request = self.request()
-        request.setValue(user.token, forHTTPHeaderField: "token")
+        request.setValue(user.token, forHTTPHeaderField: APIParameters.token)
         
         dataTask?.cancel()
         

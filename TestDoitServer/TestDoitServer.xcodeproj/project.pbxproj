@@ -20,6 +20,8 @@
 		5E4EA9501EAAB235005D6214 /* PictureUploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4EA94E1EAAB235005D6214 /* PictureUploadViewController.swift */; };
 		5E4EA9511EAAB235005D6214 /* PictureUploadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E4EA94F1EAAB235005D6214 /* PictureUploadViewController.xib */; };
 		5E4EA9551EAAB317005D6214 /* PictureUploadContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4EA9541EAAB317005D6214 /* PictureUploadContext.swift */; };
+		5E5D8D0D1EAF63DE0059DB18 /* APIParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5D8D0C1EAF63DE0059DB18 /* APIParameters.swift */; };
+		5E5D8D0F1EAF66990059DB18 /* APIResponseDataKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5D8D0E1EAF66990059DB18 /* APIResponseDataKeys.swift */; };
 		5E8288E21EAB80B600D5B1F8 /* PictureUploadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8288E11EAB80B600D5B1F8 /* PictureUploadModel.swift */; };
 		5E8288E41EAB9C9C00D5B1F8 /* LocationManagerSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8288E31EAB9C9C00D5B1F8 /* LocationManagerSingleton.swift */; };
 		5E8288E61EACB3D200D5B1F8 /* ImageCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8288E51EACB3D200D5B1F8 /* ImageCollectionItem.swift */; };
@@ -53,6 +55,8 @@
 		5E4EA94E1EAAB235005D6214 /* PictureUploadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureUploadViewController.swift; sourceTree = "<group>"; };
 		5E4EA94F1EAAB235005D6214 /* PictureUploadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PictureUploadViewController.xib; sourceTree = "<group>"; };
 		5E4EA9541EAAB317005D6214 /* PictureUploadContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureUploadContext.swift; sourceTree = "<group>"; };
+		5E5D8D0C1EAF63DE0059DB18 /* APIParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIParameters.swift; sourceTree = "<group>"; };
+		5E5D8D0E1EAF66990059DB18 /* APIResponseDataKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIResponseDataKeys.swift; sourceTree = "<group>"; };
 		5E8288E11EAB80B600D5B1F8 /* PictureUploadModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureUploadModel.swift; sourceTree = "<group>"; };
 		5E8288E31EAB9C9C00D5B1F8 /* LocationManagerSingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManagerSingleton.swift; sourceTree = "<group>"; };
 		5E8288E51EACB3D200D5B1F8 /* ImageCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionItem.swift; sourceTree = "<group>"; };
@@ -91,6 +95,8 @@
 				5ED025B31EA935EF00D9B8EF /* Library */,
 				5E8288E31EAB9C9C00D5B1F8 /* LocationManagerSingleton.swift */,
 				5E25E9B81EA8978C003F7750 /* NetworkManager.swift */,
+				5E5D8D0C1EAF63DE0059DB18 /* APIParameters.swift */,
+				5E5D8D0E1EAF66990059DB18 /* APIResponseDataKeys.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -292,8 +298,10 @@
 				5ED9F0B71EAF4824009414EB /* UIImage+Gif.swift in Sources */,
 				5ED025AD1EA8FA9B00D9B8EF /* SignUpContext.swift in Sources */,
 				5EF82A4B1EAD881E00A8A1B1 /* UIAlertController+SAPEstensions.swift in Sources */,
+				5E5D8D0D1EAF63DE0059DB18 /* APIParameters.swift in Sources */,
 				5E25E9BB1EA897D3003F7750 /* LoginContext.swift in Sources */,
 				5E4EA9551EAAB317005D6214 /* PictureUploadContext.swift in Sources */,
+				5E5D8D0F1EAF66990059DB18 /* APIResponseDataKeys.swift in Sources */,
 				5E8288E41EAB9C9C00D5B1F8 /* LocationManagerSingleton.swift in Sources */,
 				5E25E9B61EA88F48003F7750 /* User.swift in Sources */,
 				5ED025B61EA9369800D9B8EF /* Data+SAPExtenstions.swift in Sources */,

@@ -83,8 +83,8 @@ class LoginContext : NetworkContext {
     override func dictionaryForRequest() -> Dictionary<String, Any> {
         if let email = user.email,
             let password = user.password {
-            return ["email" : email,
-                    "password" : password]
+            return [APIParameters.email : email,
+                    APIParameters.password : password]
         } else {
             return [:]
         }
@@ -102,7 +102,7 @@ class LoginContext : NetworkContext {
             
         do {
             if let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : AnyObject] ,
-                let token = json["token"] as? String
+                let token = json[APIParameters.token] as? String
             {
                 user.token = token
                 appDelegate.user = user
