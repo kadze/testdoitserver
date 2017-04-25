@@ -19,10 +19,10 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rmo-kS-K9T">
-                        <rect key="frame" x="0.0" y="0.0" width="132" height="104"/>
+                        <rect key="frame" x="0.0" y="0.0" width="132" height="87"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="weather" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4I0-O3-9cy">
-                        <rect key="frame" x="0.0" y="104" width="132" height="17"/>
+                        <rect key="frame" x="0.0" y="87" width="132" height="17"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="17" id="jIG-bd-F5q"/>
                         </constraints>
@@ -30,12 +30,12 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G77-UW-f9q">
-                        <rect key="frame" x="0.0" y="121" width="132" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="address" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G77-UW-f9q">
+                        <rect key="frame" x="0.0" y="104" width="132" height="34"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="17" id="d1N-at-5xh"/>
+                            <constraint firstAttribute="height" constant="34" id="d1N-at-5xh"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>

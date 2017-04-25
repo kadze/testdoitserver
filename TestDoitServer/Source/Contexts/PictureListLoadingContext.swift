@@ -109,11 +109,8 @@ class PictureListLoadingContext : NetworkContext {
                         }
                         
                         if let parameters = image["parameters"] as? [String:Any] {
-                            if let latitude = parameters["latitude"] as? Float,
-                                let longitude = parameters["longitude"] as? Float
-                            {
-                                imageItem.latitude = "\(latitude)"
-                                imageItem.longitude = "\(longitude)"
+                            if let address = parameters["address"] as? String {
+                                imageItem.address = address
                             }
                             
                             if let weather = parameters["weather"] as? String {

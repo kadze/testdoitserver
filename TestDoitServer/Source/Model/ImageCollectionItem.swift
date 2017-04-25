@@ -20,17 +20,7 @@ class ImageCollectionItem {
     
     var imageSetHandler: ((UIImage?) -> ())?
     
-    var address: String {
-        get {
-            if let latitude = latitude,
-                let longitude = longitude {
-                return "\(latitude); \(longitude)"
-            }
-            
-            return "Unknown address"
-        }
-    }
-    
+    var address: String?
     var weather: String?
     var smallImagePath: String?
     var bigImagePath: String?
