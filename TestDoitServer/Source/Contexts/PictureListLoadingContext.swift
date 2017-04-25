@@ -38,33 +38,28 @@ class PictureListLoadingContext : NetworkContext {
             
             if let response = response as? HTTPURLResponse {
                 let status = response.statusCode
-                if status == 403 {
-                    print("invalid access token")
-                    if let data = data,
-                        let answer = String(data: data, encoding: .utf8) {
-                        print(answer)
-                    }
-                    DispatchQueue.main.async {
-                        self.hideNetworkActividyIndicator()
-                    }
+                DispatchQueue.main.async {
+                    self.hideNetworkActividyIndicator()
                     
-                    return
-                } else if status == 200 {
-                    print("successfully done")
-                    DispatchQueue.main.async {
-                        self.hideNetworkActividyIndicator()
+                    if status == 200 {
+                        print("successfully done")
                         if let data = data {
                             self.handleResponseData(data: data)
                         }
-                    }
-                } else {
-                    print("unknown status")
-                    if let data = data,
-                        let answer = String(data: data, encoding: .utf8) {
-                        print(answer)
-                    }
-                    DispatchQueue.main.async {
-                        self.hideNetworkActividyIndicator()
+                    } else {
+                        if status == 403 {
+                            print("invalid access token")
+                            if let data = data,
+                                let answer = String(data: data, encoding: .utf8) {
+                                print(answer)
+                            }
+                        } else {
+                            print("unknown status")
+                            if let data = data,
+                                let answer = String(data: data, encoding: .utf8) {
+                                print(answer)
+                            }
+                        }
                     }
                 }
             }

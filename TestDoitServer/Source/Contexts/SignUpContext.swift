@@ -61,25 +61,19 @@ class SignUpContext : NetworkContext {
             
             if let response = response as? HTTPURLResponse {
                 let status = response.statusCode
-                if status == 400 {
-                    print("incorrect request data")
-                    DispatchQueue.main.async {
-                        self.hideNetworkActividyIndicator()
-                    }
-                    
-                    return
-                } else if status == 201 {
-                    print("user successfully created")
-                    DispatchQueue.main.async {
-                        self.hideNetworkActividyIndicator()
+                DispatchQueue.main.async {
+                    self.hideNetworkActividyIndicator()
+                    if status == 400 {
+                        self.showIncorrectRequestDescription(with: data)
+                        
+                        return
+                    } else if status == 201 {
+                        print("user successfully created")
                         if let data = data {
                             self.handleResponseData(data: data)
                         }
-                    }
-                } else {
-                    print("unknown status")
-                    DispatchQueue.main.async {
-                        self.hideNetworkActividyIndicator()
+                    } else {
+                        print("unknown status")
                     }
                 }
             }
@@ -112,5 +106,26 @@ class SignUpContext : NetworkContext {
         let context = LoginContext(user: user)
         context.successHandler = successHandler
         loginContext = context
+    }
+    
+    private func showIncorrectRequestDescription(with data: Data?) {
+        print("incorrect request data")
+        if let data = data,
+            let dataDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+            let fields = dataDictionary?["children"] as? [String : Any]
+        {
+            var errorsDescription = ""
+            for fieldKey in ["username", "email", "password", "avatar"] {
+                if let fieldInfo = fields[fieldKey] as? [String : Any],
+                    let errors = fieldInfo["errors"] as? [String] {
+                    for errorDescription in errors {
+                        errorsDescription += "\(errorDescription) "
+                    }
+                    
+                }
+            }
+            
+            self.showAlert(with: "incorrect request data", message: errorsDescription)
+        }
     }
 }

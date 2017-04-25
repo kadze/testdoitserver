@@ -174,4 +174,10 @@ protocol NetworkContextDelegate {
         alertController.addAction(UIAlertAction.init(title: "OK", style: .cancel, handler: nil))
         UIAlertController.viewControllerForPresentingAlert()?.present(alertController, animated: true, completion: nil)
     }
+    
+    func showAlert(with title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction.init(title: "OK", style: .cancel, handler: nil))
+        UIAlertController.viewControllerForPresentingAlert()?.present(alertController, animated: true, completion: nil)
+    }
 }

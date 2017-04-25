@@ -128,12 +128,6 @@ class PictureUploadContext : NetworkContext {
         //
     }
     
-    private func showAlert(with title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction.init(title: "OK", style: .cancel, handler: nil))
-        UIAlertController.viewControllerForPresentingAlert()?.present(alertController, animated: true, completion: nil)
-    }
-    
     private func showIncorrectRequestDescription(with data: Data?) {
         print("incorrect request data")
         if let data = data,
