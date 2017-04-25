@@ -21,6 +21,7 @@ protocol NetworkContextDelegate {
         case get = "GET"
         case post = "POST"
     }
+    
     //MARK:-
     //MARK: Initialization
     

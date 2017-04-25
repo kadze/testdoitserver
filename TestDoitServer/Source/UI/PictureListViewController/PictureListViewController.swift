@@ -34,15 +34,18 @@ class PictureListViewController: UIViewController, UICollectionViewDelegate, UIC
         imageCollection.loadHandler = {[unowned self] in
             self.collectionView?.reloadData()
         }
-        
+
+        imageCollection.load()
+    }
+    
+    override func viewDidLayoutSubviews() {
         //in two columns
+        guard let collectionView = collectionView else { return }
         if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             let marginsAndInsets = flowLayout.sectionInset.left + flowLayout.sectionInset.right + flowLayout.minimumInteritemSpacing * (CGFloat(cellsPerRow) - 1)
             let itemWidth = (collectionView.bounds.size.width - marginsAndInsets) / CGFloat(cellsPerRow);
             flowLayout.itemSize = CGSize(width: itemWidth, height: itemWidth)
         }
-
-        imageCollection.load()
     }
     
     //MARK:- UICollectionViewDataSource
