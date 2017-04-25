@@ -8,12 +8,13 @@
 
 import UIKit
 
-class PictureListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, PictureUploadViewControllerDelegate
+class PictureListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, PictureUploadViewControllerDelegate, UIPopoverPresentationControllerDelegate
 {
     @IBOutlet var collectionView: UICollectionView?
     let cellNibName = String(describing: PictureCollectionViewCell.self)
     var imageCollection = ImageCollection()
     let cellsPerRow = 2
+    let gifOffset = 16
     
     //MARK:- View Lifecycle
     
@@ -70,6 +71,12 @@ class PictureListViewController: UIViewController, UICollectionViewDelegate, UIC
         imageCollection.load()
     }
     
+    //MARK:- UIAdaptivePresentationControllerDelegate
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
     //MARK:-
     
     func addImage() {
@@ -79,9 +86,10 @@ class PictureListViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     func showGif() {
+        let animationImagesNumber = 5
         var images = [UIImage]()
         for imageItem in imageCollection.items {
-            if images.count == 5 {
+            if images.count == animationImagesNumber {
                 break
             }
             
@@ -90,9 +98,21 @@ class PictureListViewController: UIViewController, UICollectionViewDelegate, UIC
             }
         }
         
-        let gifController = TempViewController()
+        let gifController = GifViewController()
         gifController.images = images
         
-        navigationController?.pushViewController(gifController, animated: true)
+        gifController.modalPresentationStyle = .popover
+        guard let collectionView = collectionView else { return }
+        
+        let width = collectionView.bounds.size.width -  CGFloat(gifOffset * 2)
+        gifController.preferredContentSize = CGSize(width: width, height: width)
+        
+        guard let popcontroller = gifController.popoverPresentationController else {return}
+        popcontroller.delegate = self
+        popcontroller.sourceView = view
+        popcontroller.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
+        popcontroller.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+        
+        present(gifController, animated: true, completion: nil)
     }
 }
