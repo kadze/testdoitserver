@@ -169,6 +169,8 @@ protocol NetworkContextDelegate {
         return "Boundary-\(NSUUID().uuidString)"
     }
     
+    //
+    
     func unsuccessOperationAlert() {
         let alertController = UIAlertController(title: "O_o", message: "operation was not completed successfully", preferredStyle: .alert)
         alertController.addAction(UIAlertAction.init(title: "OK", style: .cancel, handler: nil))
