@@ -1,5 +1,5 @@
 //
-//  PictureListLoadingContext.swift
+//  GifDownloadContext.swift
 //  TestDoitServer
 //
 //  Created by ASH on 4/20/17.
@@ -8,18 +8,18 @@
 
 import UIKit
 
-class PictureListLoadingContext : NetworkContext {
+class GifDownloadContext : NetworkContext {
     var dataTask: URLSessionDataTask?
     var user: User
-    var successLoadHandler: (() -> ())?
+    var completionHandler: ((Bool) -> ())?
     let appDelegate: AppDelegate  //singleton property for testing purposes
     weak var imageCollection: ImageCollection?
     
-    init(imageCollection: ImageCollection, appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate, completionHandler: (() -> ())?) {
+    init(imageCollection: ImageCollection, appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate, completionHandler: ((Bool) -> ())?) {
         self.imageCollection = imageCollection
         self.appDelegate = appDelegate
         self.user = appDelegate.user
-        successLoadHandler = completionHandler
+        self.completionHandler = completionHandler
         super.init()
     }
     
@@ -98,44 +98,44 @@ class PictureListLoadingContext : NetworkContext {
             print(answer)
         }
         
-        do {
-            if let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any] {
-                imageCollection?.items.removeAll()
-                if let images = json["images"] as? [[String:Any]] {
-                    for image in images {
-                        let imageItem = ImageCollectionItem()
-                        
-                        if let imagePath = image["smallImagePath"] as? String {
-                            imageItem.smallImagePath = imagePath
-                        }
-                        
-                        if let imagePath = image["bigImagePath"] as? String {
-                            imageItem.bigImagePath = imagePath
-                        }
-                        
-                        if let parameters = image["parameters"] as? [String:Any] {
-                            if let latitude = parameters["latitude"] as? Float,
-                                let longitude = parameters["longitude"] as? Float
-                            {
-                                imageItem.latitude = "\(latitude)"
-                                imageItem.longitude = "\(longitude)"
-                            }
-                            
-                            if let weather = parameters["weather"] as? String {
-                                imageItem.weather = weather
-                            }
-                        }
-                        
-                        imageCollection?.items.append(imageItem)
-                    }
-                }
-            
-                if let handler = successLoadHandler {
-                    handler()
-                }
-            }
-        } catch  {
-            print("Error reading response data Json: \(error)")
-        }
+//        do {
+//            if let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any] {
+//                imageCollection?.items.removeAll()
+//                if let images = json["images"] as? [[String:Any]] {
+//                    for image in images {
+//                        let imageItem = ImageCollectionItem()
+//                        
+//                        if let imagePath = image["smallImagePath"] as? String {
+//                            imageItem.smallImagePath = imagePath
+//                        }
+//                        
+//                        if let imagePath = image["bigImagePath"] as? String {
+//                            imageItem.bigImagePath = imagePath
+//                        }
+//                        
+//                        if let parameters = image["parameters"] as? [String:Any] {
+//                            if let latitude = parameters["latitude"] as? Float,
+//                                let longitude = parameters["longitude"] as? Float
+//                            {
+//                                imageItem.latitude = "\(latitude)"
+//                                imageItem.longitude = "\(longitude)"
+//                            }
+//                            
+//                            if let weather = parameters["weather"] as? String {
+//                                imageItem.weather = weather
+//                            }
+//                        }
+//                        
+//                        imageCollection?.items.append(imageItem)
+//                    }
+//                }
+//            
+//                if let handler = completionHandler {
+//                    handler()
+//                }
+//            }
+//        } catch  {
+//            print("Error reading response data Json: \(error)")
+//        }
     }
 }

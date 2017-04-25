@@ -79,6 +79,20 @@ class PictureListViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     func showGif() {
+        var images = [UIImage]()
+        for imageItem in imageCollection.items {
+            if images.count == 5 {
+                break
+            }
+            
+            if let image = imageItem.image {
+                images.append(image)
+            }
+        }
         
+        let gifController = TempViewController()
+        gifController.images = images
+        
+        navigationController?.pushViewController(gifController, animated: true)
     }
 }
