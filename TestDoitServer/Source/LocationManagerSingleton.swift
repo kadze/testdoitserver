@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import Alamofire
 
 protocol LocationManagerSingletonStructDelegate {
     mutating func locationManagerSingleton(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]);
